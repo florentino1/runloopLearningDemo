@@ -80,7 +80,6 @@
 }
 -(void)updateButtonSelectionState
 {
-    dispatch_sync(dispatch_get_main_queue(), ^{
         for(UIButton *button in buttons)
         {
             NSUInteger index=[buttons indexOfObject:button];
@@ -90,6 +89,5 @@
             else
                 [button setSelected:NO];
         }
-    });
 }
 @end

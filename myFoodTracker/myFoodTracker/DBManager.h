@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 +(instancetype)sharedDBManager;
 -(void)initDB;
 -(void)creatTable;
--(void)insertMealName:(NSString *)name mealRating:(NSUInteger)rating;
+-(void)insertMealName:(NSString *)name mealRating:(NSUInteger)rating mealPhoto:(UIImage *)photo;
 -(void)deleteMeal:(NSString *)mealName;
--(void)showDB;
+-(NSMutableArray *)getAll;
 @end
 
 NS_ASSUME_NONNULL_END

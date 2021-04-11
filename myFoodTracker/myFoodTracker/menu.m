@@ -6,44 +6,70 @@
 //
 
 #import "menu.h"
+#import "DBManager.h"
+#import "singleMeal.h"
+#import "tableViewCell.h"
+#import "ratingController.h"
+#import "singleMenuViewController.h"
 
-@interface menu ()
-
+@interface menu ()<UITableViewDataSource,UITableViewDelegate>
+@property (strong,nonatomic)NSArray *arrayFromFMDB;
 @end
 
 @implementation menu
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self getFMDBData];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+-(void)getFMDBData
+{
+    DBManager *manager=[DBManager sharedDBManager];
+    [manager initDB];
+    self.arrayFromFMDB=[manager getAll];
+    /*数据库测试代码
+        DBManager *manager=[DBManager sharedDBManager];
+        [manager initDB];
+        UIImage *photo1=[UIImage imageNamed:@"test"];
+        UIImage *photo2=[UIImage imageNamed:@"placeholderPic"];
+        singleMeal *meal1=[[singleMeal alloc]initWithName:@"testMeal1" Photo:photo1 andRating:3];
+        singleMeal *meal2=[[singleMeal alloc]initWithName:@"testMeal2" Photo:photo2 andRating:5];
+        [manager insertMealName:meal1.mealName mealRating:meal1.mealRating mealPhoto:meal1.mealPhoto];
+        [manager insertMealName:meal2.mealName mealRating:meal2.mealRating mealPhoto:meal2.mealPhoto];
+     */
+}
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+
+    return [self.arrayFromFMDB count];
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    tableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    NSInteger index=indexPath.row;
+    singleMeal *meal=self.arrayFromFMDB[index];
+    cell.imageView.image=meal.mealPhoto;
+    cell.nameLabel.text=meal.mealName;
+    cell.ratingController.currentRating=meal.mealRating;
     
     // Configure the cell...
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -79,14 +105,22 @@
 }
 */
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    [super prepareForSegue:segue sender:sender];
+    if([segue.identifier isEqualToString:@"showSingleMenu"])
+    {
+        NSUInteger selectedMealIndex=[self.tableView indexPathForCell:sender].row;
+        singleMeal *selectedMeal=self.arrayFromFMDB[selectedMealIndex];
+        UINavigationController *vc=segue.destinationViewController;
+        singleMenuViewController *singleMealController=vc.viewControllers.lastObject;
+        singleMealController.meal=selectedMeal;
+
+    }
 }
-*/
 
 @end

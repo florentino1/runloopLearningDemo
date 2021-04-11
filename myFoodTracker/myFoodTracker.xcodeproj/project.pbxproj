@@ -20,6 +20,7 @@
 		816A8C5926216D0500F6B2DC /* singleMeal.m in Sources */ = {isa = PBXBuildFile; fileRef = 816A8C5826216D0500F6B2DC /* singleMeal.m */; };
 		816A8C5D2621780600F6B2DC /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 816A8C5C2621780600F6B2DC /* DBManager.m */; };
 		816A8C772621A30700F6B2DC /* ratingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 816A8C762621A30700F6B2DC /* ratingController.m */; };
+		816A8C7D2622CF8F00F6B2DC /* tableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 816A8C7C2622CF8F00F6B2DC /* tableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,8 @@
 		816A8C5C2621780600F6B2DC /* DBManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		816A8C752621A30700F6B2DC /* ratingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ratingController.h; sourceTree = "<group>"; };
 		816A8C762621A30700F6B2DC /* ratingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ratingController.m; sourceTree = "<group>"; };
+		816A8C7B2622CF8F00F6B2DC /* tableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tableViewCell.h; sourceTree = "<group>"; };
+		816A8C7C2622CF8F00F6B2DC /* tableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tableViewCell.m; sourceTree = "<group>"; };
 		FADC70A7525AF7BF7DF32003 /* Pods-myFoodTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myFoodTracker.release.xcconfig"; path = "Target Support Files/Pods-myFoodTracker/Pods-myFoodTracker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,6 +115,8 @@
 				816A8C5C2621780600F6B2DC /* DBManager.m */,
 				816A8C752621A30700F6B2DC /* ratingController.h */,
 				816A8C762621A30700F6B2DC /* ratingController.m */,
+				816A8C7B2622CF8F00F6B2DC /* tableViewCell.h */,
+				816A8C7C2622CF8F00F6B2DC /* tableViewCell.m */,
 			);
 			path = myFoodTracker;
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 				816A8C4126215FE600F6B2DC /* main.m in Sources */,
 				816A8C5926216D0500F6B2DC /* singleMeal.m in Sources */,
 				816A8C3326215FE500F6B2DC /* SceneDelegate.m in Sources */,
+				816A8C7D2622CF8F00F6B2DC /* tableViewCell.m in Sources */,
 				816A8C542621651D00F6B2DC /* singleMenuViewController.m in Sources */,
 				816A8C772621A30700F6B2DC /* ratingController.m in Sources */,
 			);

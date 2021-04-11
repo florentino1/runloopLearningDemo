@@ -7,6 +7,7 @@
 
 #import "DBManager.h"
 #import <FMDatabase.h>
+#import "singleMeal.h"
 
 @interface DBManager()
 @property(nonatomic,strong)FMDatabase *db;
@@ -40,7 +41,7 @@
 {
     if([self.db open])
     {
-        NSString *sql=[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS userDB (mealName TEXT NOT NULL UNIQUE,mealRating TEXT);"];
+        NSString *sql=[NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS userDB (mealName TEXT NOT NULL UNIQUE,mealPhoto blob,mealRating TEXT);"];
         BOOL result=[self.db executeUpdate:sql];
         if(result)
             NSLog(@"》》》建表成功");
@@ -48,13 +49,14 @@
             NSLog(@"》》》建表失败");
     }
 }
--(void)insertMealName:(NSString *)name mealRating:(NSUInteger)rating
+-(void)insertMealName:(NSString *)name mealRating:(NSUInteger)rating mealPhoto:(UIImage *)photo
 {
+    NSData *photoBinary=UIImagePNGRepresentation(photo);
     [self.db beginTransaction];
     NSString *newRating=[NSString stringWithFormat:@"%lu",(unsigned long)rating];
     BOOL isRollingBack=NO;
     @try {
-        BOOL successed=[self.db executeUpdate:@"insert into userDB(mealName,mealRating) values (?,?)",name,newRating];
+        BOOL successed=[self.db executeUpdate:@"insert into userDB(mealName,mealPhoto,mealRating) values (?,?,?)",name,photoBinary,newRating];
         if(successed)
             NSLog(@"》》》数据插入成功");
         else
@@ -76,18 +78,23 @@
     else
         NSLog(@"》》》%@ 删除失败",mealName);
 }
--(void)showDB
+-(NSMutableArray *)getAll
 {
     NSString *sql=@"select * from userDB";
     FMResultSet *results=[self.db executeQuery:sql];
     NSMutableArray *returnArray=[NSMutableArray array];
-    while ([results next]) {
+    while ([results next])
+    {
         NSString *mealName=[results stringForColumn:@"mealName"];
-        [returnArray addObject:mealName];
+        NSString *mealRating=[results stringForColumn:@"mealRating"];
+        NSUInteger rating=[mealRating integerValue];
+        NSData *photoBinary=[results dataForColumn:@"mealPhoto"];
+        UIImage *photo=[UIImage imageWithData:photoBinary];
+        singleMeal *meal=[[singleMeal alloc]initWithName:mealName Photo:photo andRating:rating];
+        [returnArray addObject:meal];
     }
     [results close];
-    NSLog(@"%@",returnArray);
-
+    return returnArray;
 }
 @end
 

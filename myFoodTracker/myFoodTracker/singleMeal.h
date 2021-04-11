@@ -11,9 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface singleMeal : NSObject
 @property (nonatomic,strong)NSString *mealName;
-@property (nonatomic,strong)UIImage *mealPhoto;
+@property (nonatomic,strong) UIImage * _Nullable mealPhoto;
 @property (nonatomic,assign)NSUInteger mealRating;
--(instancetype)initWithName:(NSString *)name Photo:(UIImage *)photo andRating:(NSUInteger)rating;
+-(nullable instancetype)initWithName:(NSString *)name Photo:(UIImage *)photo andRating:(NSUInteger)rating;
 @end
 
 NS_ASSUME_NONNULL_END

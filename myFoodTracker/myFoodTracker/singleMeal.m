@@ -8,10 +8,14 @@
 #import "singleMeal.h"
 
 @implementation singleMeal
--(instancetype)initWithName:(NSString *)name Photo:(UIImage *)photo andRating:(NSUInteger)rating
+-(nullable instancetype)initWithName:(NSString *)name Photo:(UIImage *)photo andRating:(NSUInteger)rating
 {
     self=[super init];
-    if(self)
+    if(name==NULL)
+        return NULL;
+    else if (rating<0 || rating>5)
+        return NULL;
+    else
     {
         _mealName=name;
         _mealPhoto=photo;

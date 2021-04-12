@@ -11,6 +11,7 @@
     NSMutableArray *buttons;//用于储存已经生成的button
 }
 @end
+IB_DESIGNABLE
 @implementation ratingController
 
 /*
@@ -42,6 +43,7 @@
 }
 -(void)setButtons
 {
+    [self fresh];
     for(UIButton *button in buttons)     //移除原有的button
     {
         [self removeArrangedSubview:button];
@@ -60,7 +62,7 @@
         [button setImage:emptyImage forState:UIControlStateNormal];
         [button setImage:fullImage forState:UIControlStateSelected];
         [button setImage:highlightImage forState:UIControlStateHighlighted && UIControlStateSelected];
-        button.translatesAutoresizingMaskIntoConstraints=false;
+        button.translatesAutoresizingMaskIntoConstraints=NO;
         [button.heightAnchor constraintEqualToConstant:self.starHeight].active=true;
         [button.widthAnchor constraintEqualToConstant:self.starWeith].active=true;
         [button addTarget:self action:@selector(ratingButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -77,6 +79,7 @@
         self.currentRating=0;
     else
         self.currentRating=selectedRating;
+    [self updateButtonSelectionState];
 }
 -(void)updateButtonSelectionState
 {

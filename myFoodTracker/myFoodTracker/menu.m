@@ -64,7 +64,7 @@
     cell.imageView.image=meal.mealPhoto;
     cell.nameLabel.text=meal.mealName;
     cell.ratingController.currentRating=meal.mealRating;
-    
+
     // Configure the cell...
     
     return cell;
@@ -116,6 +116,7 @@
     {
         NSUInteger selectedMealIndex=[self.tableView indexPathForCell:sender].row;
         singleMeal *selectedMeal=self.arrayFromFMDB[selectedMealIndex];
+        //此处要注意的是传入的destinationViewController 不是直接显示视图的viewController，而是NAvigationviewcontroller ，直接显示视图的viewcontroller是navigationviewcontroller的view栈中的第一个元素；
         UINavigationController *vc=segue.destinationViewController;
         singleMenuViewController *singleMealController=vc.viewControllers.lastObject;
         singleMealController.meal=selectedMeal;

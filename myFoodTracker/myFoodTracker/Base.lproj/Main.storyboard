@@ -22,11 +22,22 @@
                                     <constraint firstAttribute="height" constant="334" id="7hQ-1y-RmE"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="baQ-hO-a4I">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="baQ-hO-a4I" customClass="ratingController">
                                 <rect key="frame" x="40" y="582" width="334" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="wsT-Rd-Pom"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="starCount">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="starWeith">
+                                        <real key="value" value="44"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="starHeight">
+                                        <real key="value" value="44"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -34,9 +45,9 @@
                         <constraints>
                             <constraint firstItem="baQ-hO-a4I" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="Po2-fK-K8K"/>
                             <constraint firstItem="fgS-wA-hcq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="Toj-zd-DBp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="baQ-hO-a4I" secondAttribute="trailing" constant="40" id="V0X-ma-ZWW"/>
                             <constraint firstItem="fgS-wA-hcq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="Y99-QE-qNm"/>
                             <constraint firstItem="baQ-hO-a4I" firstAttribute="top" secondItem="fgS-wA-hcq" secondAttribute="bottom" constant="60" id="iPJ-PG-fT9"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="baQ-hO-a4I" secondAttribute="trailing" constant="40" id="q1h-99-oAv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fgS-wA-hcq" secondAttribute="trailing" constant="40" id="ydg-hu-toe"/>
                         </constraints>
                     </view>
@@ -109,12 +120,12 @@
         <scene sceneID="qFw-UR-Ngv">
             <objects>
                 <tableViewController id="sp3-8c-KD8" customClass="menu" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Phk-Mi-YX7">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Phk-Mi-YX7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="90" id="PKH-NE-v70" customClass="tableViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="PKH-NE-v70" customClass="tableViewCell">
                                 <rect key="frame" x="0.0" y="28" width="414" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PKH-NE-v70" id="hlz-Xh-x9v">
@@ -124,35 +135,46 @@
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vfm-eG-OGm">
                                             <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="90" id="BT5-iv-kQd"/>
-                                                <constraint firstAttribute="width" constant="90" id="Sad-nW-DEI"/>
+                                                <constraint firstAttribute="width" constant="90" id="Ere-K1-suf"/>
+                                                <constraint firstAttribute="height" constant="90" id="uF2-eu-3tn"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3p-wA-N5K">
-                                            <rect key="frame" x="105" y="10" width="256" height="25"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3p-wA-N5K">
+                                            <rect key="frame" x="105" y="5" width="41.5" height="25"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="8Ty-4X-pSB"/>
+                                                <constraint firstAttribute="height" constant="25" id="Xlf-6K-c3I"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oYA-Jc-hbT" customClass="ratingController">
-                                            <rect key="frame" x="105" y="45" width="180" height="40"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="oYA-Jc-hbT" customClass="ratingController">
+                                            <rect key="frame" x="105" y="35" width="240" height="55"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="180" id="2fh-fc-rGL"/>
-                                                <constraint firstAttribute="height" constant="40" id="SIb-SV-49C"/>
+                                                <constraint firstAttribute="height" constant="55" id="GzV-gS-W4F"/>
+                                                <constraint firstAttribute="width" constant="240" id="Pw3-xo-3XW"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="starCount">
+                                                    <integer key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="starWeith">
+                                                    <real key="value" value="44"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="starHeight">
+                                                    <real key="value" value="44"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Vfm-eG-OGm" firstAttribute="leading" secondItem="hlz-Xh-x9v" secondAttribute="leading" id="6Qg-I3-E3F"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="R3p-wA-N5K" secondAttribute="trailing" constant="33" id="7Gt-ke-XX6"/>
-                                        <constraint firstItem="R3p-wA-N5K" firstAttribute="leading" secondItem="Vfm-eG-OGm" secondAttribute="trailing" constant="15" id="Hne-pM-Lwf"/>
-                                        <constraint firstItem="oYA-Jc-hbT" firstAttribute="top" secondItem="R3p-wA-N5K" secondAttribute="bottom" constant="10" id="con-c2-kv1"/>
-                                        <constraint firstItem="R3p-wA-N5K" firstAttribute="top" secondItem="hlz-Xh-x9v" secondAttribute="top" constant="10" id="lF0-uy-Rpl"/>
-                                        <constraint firstItem="oYA-Jc-hbT" firstAttribute="leading" secondItem="Vfm-eG-OGm" secondAttribute="trailing" constant="15" id="sgd-Ze-Rem"/>
-                                        <constraint firstItem="Vfm-eG-OGm" firstAttribute="centerY" secondItem="hlz-Xh-x9v" secondAttribute="centerY" id="zAl-rZ-6z6"/>
+                                        <constraint firstItem="Vfm-eG-OGm" firstAttribute="centerY" secondItem="hlz-Xh-x9v" secondAttribute="centerY" id="BhZ-4N-MaZ"/>
+                                        <constraint firstItem="oYA-Jc-hbT" firstAttribute="top" secondItem="R3p-wA-N5K" secondAttribute="bottom" constant="5" id="Bt5-Oi-9I1"/>
+                                        <constraint firstItem="R3p-wA-N5K" firstAttribute="leading" secondItem="Vfm-eG-OGm" secondAttribute="trailing" constant="15" id="KpL-JZ-XWH"/>
+                                        <constraint firstItem="Vfm-eG-OGm" firstAttribute="leading" secondItem="hlz-Xh-x9v" secondAttribute="leading" id="TPt-CY-DsV"/>
+                                        <constraint firstItem="oYA-Jc-hbT" firstAttribute="leading" secondItem="Vfm-eG-OGm" secondAttribute="trailing" constant="15" id="Vyp-Hc-1Xk"/>
+                                        <constraint firstItem="Vfm-eG-OGm" firstAttribute="top" secondItem="hlz-Xh-x9v" secondAttribute="top" id="mHD-at-14q"/>
+                                        <constraint firstItem="R3p-wA-N5K" firstAttribute="top" secondItem="hlz-Xh-x9v" secondAttribute="top" constant="5" id="qwS-Lq-ZX7"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

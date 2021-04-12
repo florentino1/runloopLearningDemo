@@ -22,7 +22,7 @@
                                     <constraint firstAttribute="height" constant="334" id="7hQ-1y-RmE"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="baQ-hO-a4I" customClass="ratingController">
+                            <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="baQ-hO-a4I" customClass="ratingController">
                                 <rect key="frame" x="40" y="582" width="334" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="wsT-Rd-Pom"/>
@@ -59,7 +59,8 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="JQi-ZI-9g8">
                             <connections>
-                                <action selector="edit:" destination="BYZ-38-t0r" id="3Wi-Xo-Zwn"/>
+                                <action selector="edit:" destination="BYZ-38-t0r" id="3vH-ya-o4I"/>
+                                <segue destination="bL7-sE-RSb" kind="show" id="krl-fK-DSX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -80,7 +81,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="z8a-no-8dq">
-                                <rect key="frame" x="40" y="94" width="334" height="600"/>
+                                <rect key="frame" x="40" y="138" width="334" height="556"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="placeholder" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="juQ-Dr-WtS">
                                         <rect key="frame" x="0.0" y="0.0" width="334" height="50"/>
@@ -90,14 +91,18 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8r3-TG-tZD">
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8r3-TG-tZD">
                                         <rect key="frame" x="0.0" y="50" width="334" height="400"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="400" id="ElF-qi-OF5"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="aj4-Xs-jSe" appends="YES" id="JqX-ig-dz3"/>
+                                        </connections>
                                     </imageView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uo4-or-5MY">
-                                        <rect key="frame" x="0.0" y="450" width="334" height="150"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Uo4-or-5MY" customClass="ratingController">
+                                        <rect key="frame" x="0.0" y="450" width="334" height="106"/>
                                     </stackView>
                                 </subviews>
                             </stackView>
@@ -111,10 +116,35 @@
                             <constraint firstItem="z8a-no-8dq" firstAttribute="top" secondItem="jV8-de-eUB" secondAttribute="top" constant="50" id="w0O-AF-diT"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="dZa-Vf-Kry">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="apb-fa-8Wr">
+                            <connections>
+                                <action selector="cancel:" destination="bL7-sE-RSb" id="zbA-QJ-lWU"/>
+                                <segue destination="1Dw-ow-irm" kind="unwind" unwindAction="unwindToMenu:" id="9GM-KV-xXS"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="31x-ie-veJ">
+                            <connections>
+                                <action selector="save:" destination="bL7-sE-RSb" id="qBy-PP-B4X"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="8r3-TG-tZD" id="v5Y-lR-492"/>
+                        <outlet property="ratingContoller" destination="Uo4-or-5MY" id="bcD-i9-hNA"/>
+                        <outlet property="saveButton" destination="31x-ie-veJ" id="h1S-gu-7XC"/>
+                        <outlet property="textfield" destination="juQ-Dr-WtS" id="NoO-AI-bXi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EIv-kQ-MXy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="1Dw-ow-irm" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="aj4-Xs-jSe">
+                    <connections>
+                        <action selector="selectNewMealImage:" destination="bL7-sE-RSb" id="Qgb-Nt-WMB"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="435" y="508"/>
+            <point key="canvasLocation" x="484" y="1237"/>
         </scene>
         <!--Menu-->
         <scene sceneID="qFw-UR-Ngv">
@@ -181,7 +211,7 @@
                                     <outlet property="imageView" destination="Vfm-eG-OGm" id="EBa-iN-nIy"/>
                                     <outlet property="nameLabel" destination="R3p-wA-N5K" id="6bJ-6q-bC1"/>
                                     <outlet property="ratingController" destination="oYA-Jc-hbT" id="SU9-6q-RFc"/>
-                                    <segue destination="Q4k-Sn-g6A" kind="show" identifier="showSingleMenu" id="1Rk-El-ajO"/>
+                                    <segue destination="Q4k-Sn-g6A" kind="show" identifier="showSingleMenu" id="Lid-dW-zGR"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -191,7 +221,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Menu" id="Gio-XL-BYF">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="GAr-XD-ojJ"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="GAr-XD-ojJ">
+                            <connections>
+                                <segue destination="bL7-sE-RSb" kind="push" id="EAG-ye-1Sx"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rtq-ap-ahR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -236,6 +270,9 @@
             <point key="canvasLocation" x="1387" y="-208"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="EAG-ye-1Sx"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

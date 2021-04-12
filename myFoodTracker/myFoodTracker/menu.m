@@ -11,27 +11,29 @@
 #import "tableViewCell.h"
 #import "ratingController.h"
 #import "singleMenuViewController.h"
+#import "editViewController.h"
 
 @interface menu ()<UITableViewDataSource,UITableViewDelegate>
-@property (strong,nonatomic)NSArray *arrayFromFMDB;
+@property (strong,nonatomic)NSMutableArray *arrayFromFMDB;
+@property (strong,nonatomic)DBManager *manager;
 @end
 
 @implementation menu
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getFMDBData];
+    self.manager=[DBManager sharedDBManager];
+    [self.manager initDB];
+    self.arrayFromFMDB=[[self.manager getAll]mutableCopy];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
--(void)getFMDBData
-{
-    DBManager *manager=[DBManager sharedDBManager];
-    [manager initDB];
-    self.arrayFromFMDB=[manager getAll];
+//-(void)getFMDBData
+//{
+
     /*数据库测试代码
         DBManager *manager=[DBManager sharedDBManager];
         [manager initDB];
@@ -42,9 +44,8 @@
         [manager insertMealName:meal1.mealName mealRating:meal1.mealRating mealPhoto:meal1.mealPhoto];
         [manager insertMealName:meal2.mealName mealRating:meal2.mealRating mealPhoto:meal2.mealPhoto];
      */
-}
-
-#pragma mark - Table view data source
+//}
+#pragma mark - Tableviewdatasourcedelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
@@ -71,39 +72,39 @@
 }
 
 
-/*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        singleMeal *deleteMeal=self.arrayFromFMDB[indexPath.row];
+        [self.arrayFromFMDB removeObject:deleteMeal];
+        [self.manager deleteMeal:deleteMeal.mealName];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
 
-/*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
 
-/*
+}
+
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
-*/
+
+
+
+
 
 #pragma mark - Navigation
 
@@ -122,6 +123,35 @@
         singleMealController.meal=selectedMeal;
 
     }
+}
+-(IBAction)unwindToMenu:(UIStoryboardSegue *)sender
+{
+    NSIndexPath *selectedIndexPath=[self.tableView indexPathForSelectedRow];
+    editViewController *sourceViewController=sender.sourceViewController;
+    singleMeal *Meal=sourceViewController.tem;
+    if(Meal.mealPhoto==nil)
+        Meal.mealPhoto=[UIImage imageNamed:@"placeholderPic"];
+    NSMutableArray *indexPaths=[[NSMutableArray alloc]init];//只是为了在下边的方法里使用一下而已，没有特别的用处
+    //修改已存在的单元格
+    if(selectedIndexPath)
+    {
+        self.arrayFromFMDB[selectedIndexPath.row]=Meal;
+        [indexPaths addObject:selectedIndexPath];
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+    }
+    //添加新的单元格
+    else
+    {
+        NSIndexPath *newMealIndexPath=[NSIndexPath indexPathForRow:self.arrayFromFMDB.count inSection:0];
+        [self.arrayFromFMDB addObject:Meal];
+        [indexPaths addObject:newMealIndexPath];
+        [self.tableView beginUpdates];
+        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+    }
+
 }
 
 @end

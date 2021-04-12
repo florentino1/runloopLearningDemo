@@ -51,7 +51,16 @@
 }
 -(void)insertMealName:(NSString *)name mealRating:(NSUInteger)rating mealPhoto:(UIImage *)photo
 {
-    NSData *photoBinary=UIImagePNGRepresentation(photo);
+    NSData *photoBinary=[[NSData alloc]init];
+    if(photo!=nil)
+    {
+    photoBinary=UIImagePNGRepresentation(photo);
+    }
+    else
+    {
+        UIImage *defaultImage=[UIImage imageNamed:@"placeholderPic"];
+        photoBinary=UIImagePNGRepresentation(defaultImage);
+    }
     [self.db beginTransaction];
     NSString *newRating=[NSString stringWithFormat:@"%lu",(unsigned long)rating];
     BOOL isRollingBack=NO;

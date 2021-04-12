@@ -8,6 +8,7 @@
 #import "singleMenuViewController.h"
 #import "singleMeal.h"
 #import "ratingController.h"
+#import "editViewController.h"
 
 @interface singleMenuViewController ()<UINavigationBarDelegate,UINavigationControllerDelegate>
 @property (strong,nonatomic)ratingController *ratingController;
@@ -32,6 +33,7 @@
     }
     self.ratingController.currentRating=self.meal.mealRating;
     self.navigationItem.title=self.meal.mealName;
+    self.ratingController.userInteractionEnabled=NO;
 }
 - (IBAction)edit:(UIBarButtonItem *)sender {
 
@@ -40,12 +42,16 @@
     [self dismissViewControllerAnimated:TRUE completion:nil];
 }
 
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    [super prepareForSegue:segue sender:sender];
+    editViewController *vc=segue.destinationViewController;
+    vc.prepredMeal=self.meal;
 }
 
 @end

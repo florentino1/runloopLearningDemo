@@ -61,6 +61,12 @@
 }
 - (IBAction)save:(UIBarButtonItem *)sender {
     DBManager *manager=[DBManager sharedDBManager];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSNotificationCenter *notification=[NSNotificationCenter defaultCenter];
+        NSString *notificationName=[NSString stringWithFormat:@"The saveButton has been pressed"];
+        NSNotification *nf=[NSNotification notificationWithName:notificationName object:nil];
+        [notification postNotification:nf];
+    });
     //插入新的singleMeal
     if(self.prepredMeal==nil)
         [manager insertMealName:self.tem.mealName mealRating:self.tem.mealRating mealPhoto:self.tem.mealPhoto];

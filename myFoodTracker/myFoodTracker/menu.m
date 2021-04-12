@@ -16,15 +16,18 @@
 @interface menu ()<UITableViewDataSource,UITableViewDelegate>
 @property (strong,nonatomic)NSMutableArray *arrayFromFMDB;
 @property (strong,nonatomic)DBManager *manager;
+@property (assign ,nonatomic)NSUInteger flag;//用于表示meal是否被更改
 @end
 
 @implementation menu
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.flag=0;//表示meal未被更改
     self.manager=[DBManager sharedDBManager];
     [self.manager initDB];
     self.arrayFromFMDB=[[self.manager getAll]mutableCopy];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(isMealDidChanged) name:@"The saveButton has been pressed" object:nil];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -129,9 +132,12 @@
     NSIndexPath *selectedIndexPath=[self.tableView indexPathForSelectedRow];
     editViewController *sourceViewController=sender.sourceViewController;
     singleMeal *Meal=sourceViewController.tem;
-    if(Meal.mealPhoto==nil)
-        Meal.mealPhoto=[UIImage imageNamed:@"placeholderPic"];
     NSMutableArray *indexPaths=[[NSMutableArray alloc]init];//只是为了在下边的方法里使用一下而已，没有特别的用处
+    while (self.flag==1) {
+        if(Meal.mealPhoto==nil)
+        {
+            Meal.mealPhoto=[UIImage imageNamed:@"placeholderPic"];
+        }
     //修改已存在的单元格
     if(selectedIndexPath)
     {
@@ -151,7 +157,13 @@
         [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView endUpdates];
     }
+        self.flag=0;
+    }
 
+}
+-(void)isMealDidChanged
+{
+    self.flag=1;
 }
 
 @end

@@ -11,7 +11,7 @@
 #import "editViewController.h"
 
 @interface singleMenuViewController ()<UINavigationBarDelegate,UINavigationControllerDelegate>
-@property (strong,nonatomic)ratingController *ratingController;
+@property (strong, nonatomic) IBOutlet ratingController *ratingController;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @end
@@ -20,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+  //  self.ratingController=[[ratingController alloc]init];
     // Do any additional setup after loading the view.
     if(self.meal==nil)
         NSLog(@"》》》传入的meal为空");
@@ -32,8 +33,8 @@
         self.imageView.image=self.meal.mealPhoto;
     }
     self.ratingController.currentRating=self.meal.mealRating;
+    [self addObserver:self forKeyPath:@"ratingController.currentRating" options:NSKeyValueObservingOptionNew context:nil];
     self.navigationItem.title=self.meal.mealName;
-    self.ratingController.userInteractionEnabled=NO;
 }
 - (IBAction)edit:(UIBarButtonItem *)sender {
 
@@ -41,7 +42,13 @@
 - (IBAction)cancel:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:TRUE completion:nil];
 }
-
+-(void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context
+{
+    if([keyPath isEqualToString:@"ratingController.currentRating"])
+    {
+        [self.ratingController updateButtonSelectionState];
+    }
+}
 
 #pragma mark - Navigation
 

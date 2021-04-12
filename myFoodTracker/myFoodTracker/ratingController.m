@@ -24,14 +24,26 @@ IB_DESIGNABLE
 -(instancetype)initWithFrame:(CGRect)frame
 {
     self=[super initWithFrame:frame];
+    [self addObserver:self forKeyPath:@"currentRating" options:NSKeyValueObservingOptionNew context:nil];
     [self setButtons];
+    [self updateButtonSelectionState];
     return self;
 }
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     self=[super initWithCoder:coder];
+    [self addObserver:self forKeyPath:@"currentRating" options:NSKeyValueObservingOptionNew context:nil];
     [self setButtons];
+    [self updateButtonSelectionState];
     return self;
+
+}
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if([keyPath isEqualToString:@"currentRating"])
+    {
+        [self updateButtonSelectionState];
+    }
 
 }
 -(void)fresh
@@ -69,7 +81,6 @@ IB_DESIGNABLE
         [self addArrangedSubview:button];
         [buttons addObject:button];
     }
-    [self updateButtonSelectionState];
 }
 -(IBAction)ratingButtonTapped:(id)sender
 {

@@ -15,7 +15,7 @@
     // Initialization code
     self.nameLabel.text=@"mealName";
     self.imageView.image=[UIImage imageNamed:@"placeholderPic"];
-    self.ratingController.userInteractionEnabled=NO;
+   // self.ratingController.userInteractionEnabled=NO;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

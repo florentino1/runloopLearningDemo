@@ -66,6 +66,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="fgS-wA-hcq" id="fm0-80-78m"/>
+                        <outlet property="ratingController" destination="baQ-hO-a4I" id="Nqh-Nu-GZw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -178,7 +179,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="oYA-Jc-hbT" customClass="ratingController">
+                                        <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="oYA-Jc-hbT" customClass="ratingController">
                                             <rect key="frame" x="105" y="35" width="240" height="55"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="55" id="GzV-gS-W4F"/>
@@ -271,7 +272,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="EAG-ye-1Sx"/>
+        <segue reference="krl-fK-DSX"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">

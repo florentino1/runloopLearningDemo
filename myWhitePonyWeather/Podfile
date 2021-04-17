@@ -1,0 +1,4 @@
+target 'myWhitePonyWeather' do
+platform:ios,'14.0'
+pod 'PKRevealController','~>2.0.6'
+end

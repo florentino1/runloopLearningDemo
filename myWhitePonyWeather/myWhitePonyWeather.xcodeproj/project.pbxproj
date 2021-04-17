@@ -9,26 +9,35 @@
 /* Begin PBXBuildFile section */
 		81ADCBA52625E50E00EBF5CD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCBA42625E50E00EBF5CD /* AppDelegate.m */; };
 		81ADCBA82625E50E00EBF5CD /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCBA72625E50E00EBF5CD /* SceneDelegate.m */; };
-		81ADCBAB2625E50E00EBF5CD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCBAA2625E50E00EBF5CD /* ViewController.m */; };
-		81ADCBAE2625E50E00EBF5CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81ADCBAC2625E50E00EBF5CD /* Main.storyboard */; };
 		81ADCBB02625E51300EBF5CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81ADCBAF2625E51300EBF5CD /* Assets.xcassets */; };
 		81ADCBB32625E51300EBF5CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81ADCBB12625E51300EBF5CD /* LaunchScreen.storyboard */; };
 		81ADCBB62625E51300EBF5CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCBB52625E51300EBF5CD /* main.m */; };
+		81ADCC1B262A9A6100EBF5CD /* leftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCC19262A9A6100EBF5CD /* leftTableViewCell.m */; };
+		81ADCC1C262A9A6100EBF5CD /* leftTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81ADCC1A262A9A6100EBF5CD /* leftTableViewCell.xib */; };
+		81ADCC27262AE68000EBF5CD /* leftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCC25262AE67F00EBF5CD /* leftViewController.m */; };
+		81ADCC28262AE68000EBF5CD /* leftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81ADCC26262AE67F00EBF5CD /* leftViewController.xib */; };
+		873FB08F1E3D0BD76CBD6F47 /* libPods-myWhitePonyWeather.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8650A647AEBB2D7356005B17 /* libPods-myWhitePonyWeather.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49BD7011CC12527013BC8861 /* Pods-myWhitePonyWeather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myWhitePonyWeather.debug.xcconfig"; path = "Target Support Files/Pods-myWhitePonyWeather/Pods-myWhitePonyWeather.debug.xcconfig"; sourceTree = "<group>"; };
 		81ADCBA02625E50E00EBF5CD /* myWhitePonyWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myWhitePonyWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81ADCBA32625E50E00EBF5CD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		81ADCBA42625E50E00EBF5CD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		81ADCBA62625E50E00EBF5CD /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		81ADCBA72625E50E00EBF5CD /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		81ADCBA92625E50E00EBF5CD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		81ADCBAA2625E50E00EBF5CD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		81ADCBAD2625E50E00EBF5CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		81ADCBAF2625E51300EBF5CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81ADCBB22625E51300EBF5CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		81ADCBB42625E51300EBF5CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81ADCBB52625E51300EBF5CD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		81ADCC18262A9A6100EBF5CD /* leftTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = leftTableViewCell.h; sourceTree = "<group>"; };
+		81ADCC19262A9A6100EBF5CD /* leftTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = leftTableViewCell.m; sourceTree = "<group>"; };
+		81ADCC1A262A9A6100EBF5CD /* leftTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = leftTableViewCell.xib; sourceTree = "<group>"; };
+		81ADCC24262AE67F00EBF5CD /* leftViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = leftViewController.h; sourceTree = "<group>"; };
+		81ADCC25262AE67F00EBF5CD /* leftViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = leftViewController.m; sourceTree = "<group>"; };
+		81ADCC26262AE67F00EBF5CD /* leftViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = leftViewController.xib; sourceTree = "<group>"; };
+		8650A647AEBB2D7356005B17 /* libPods-myWhitePonyWeather.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-myWhitePonyWeather.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3AA3292EF080CE4CC595941 /* Pods-myWhitePonyWeather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myWhitePonyWeather.release.xcconfig"; path = "Target Support Files/Pods-myWhitePonyWeather/Pods-myWhitePonyWeather.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,17 +45,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				873FB08F1E3D0BD76CBD6F47 /* libPods-myWhitePonyWeather.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E7308A0CEAAA75E96B64FE5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				49BD7011CC12527013BC8861 /* Pods-myWhitePonyWeather.debug.xcconfig */,
+				E3AA3292EF080CE4CC595941 /* Pods-myWhitePonyWeather.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		24D841C88F392919BC603FAA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8650A647AEBB2D7356005B17 /* libPods-myWhitePonyWeather.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		81ADCB972625E50E00EBF5CD = {
 			isa = PBXGroup;
 			children = (
 				81ADCBA22625E50E00EBF5CD /* myWhitePonyWeather */,
 				81ADCBA12625E50E00EBF5CD /* Products */,
+				0E7308A0CEAAA75E96B64FE5 /* Pods */,
+				24D841C88F392919BC603FAA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,15 +94,34 @@
 				81ADCBA42625E50E00EBF5CD /* AppDelegate.m */,
 				81ADCBA62625E50E00EBF5CD /* SceneDelegate.h */,
 				81ADCBA72625E50E00EBF5CD /* SceneDelegate.m */,
-				81ADCBA92625E50E00EBF5CD /* ViewController.h */,
-				81ADCBAA2625E50E00EBF5CD /* ViewController.m */,
-				81ADCBAC2625E50E00EBF5CD /* Main.storyboard */,
 				81ADCBAF2625E51300EBF5CD /* Assets.xcassets */,
 				81ADCBB12625E51300EBF5CD /* LaunchScreen.storyboard */,
 				81ADCBB42625E51300EBF5CD /* Info.plist */,
 				81ADCBB52625E51300EBF5CD /* main.m */,
+				81ADCC2A262AE68600EBF5CD /* leftViewController */,
+				81ADCC17262A9A4600EBF5CD /* tableViewCell */,
 			);
 			path = myWhitePonyWeather;
+			sourceTree = "<group>";
+		};
+		81ADCC17262A9A4600EBF5CD /* tableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				81ADCC18262A9A6100EBF5CD /* leftTableViewCell.h */,
+				81ADCC19262A9A6100EBF5CD /* leftTableViewCell.m */,
+				81ADCC1A262A9A6100EBF5CD /* leftTableViewCell.xib */,
+			);
+			path = tableViewCell;
+			sourceTree = "<group>";
+		};
+		81ADCC2A262AE68600EBF5CD /* leftViewController */ = {
+			isa = PBXGroup;
+			children = (
+				81ADCC24262AE67F00EBF5CD /* leftViewController.h */,
+				81ADCC25262AE67F00EBF5CD /* leftViewController.m */,
+				81ADCC26262AE67F00EBF5CD /* leftViewController.xib */,
+			);
+			path = leftViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +131,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 81ADCBB92625E51300EBF5CD /* Build configuration list for PBXNativeTarget "myWhitePonyWeather" */;
 			buildPhases = (
+				2A74E616870D793CEE9BDE25 /* [CP] Check Pods Manifest.lock */,
 				81ADCB9C2625E50E00EBF5CD /* Sources */,
 				81ADCB9D2625E50E00EBF5CD /* Frameworks */,
 				81ADCB9E2625E50E00EBF5CD /* Resources */,
@@ -132,22 +181,49 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81ADCC1C262A9A6100EBF5CD /* leftTableViewCell.xib in Resources */,
+				81ADCC28262AE68000EBF5CD /* leftViewController.xib in Resources */,
 				81ADCBB32625E51300EBF5CD /* LaunchScreen.storyboard in Resources */,
 				81ADCBB02625E51300EBF5CD /* Assets.xcassets in Resources */,
-				81ADCBAE2625E50E00EBF5CD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2A74E616870D793CEE9BDE25 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-myWhitePonyWeather-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		81ADCB9C2625E50E00EBF5CD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81ADCBAB2625E50E00EBF5CD /* ViewController.m in Sources */,
 				81ADCBA52625E50E00EBF5CD /* AppDelegate.m in Sources */,
+				81ADCC27262AE68000EBF5CD /* leftViewController.m in Sources */,
 				81ADCBB62625E51300EBF5CD /* main.m in Sources */,
+				81ADCC1B262A9A6100EBF5CD /* leftTableViewCell.m in Sources */,
 				81ADCBA82625E50E00EBF5CD /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -155,14 +231,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		81ADCBAC2625E50E00EBF5CD /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				81ADCBAD2625E50E00EBF5CD /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		81ADCBB12625E51300EBF5CD /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -288,6 +356,7 @@
 		};
 		81ADCBBA2625E51300EBF5CD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49BD7011CC12527013BC8861 /* Pods-myWhitePonyWeather.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -306,6 +375,7 @@
 		};
 		81ADCBBB2625E51300EBF5CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E3AA3292EF080CE4CC595941 /* Pods-myWhitePonyWeather.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

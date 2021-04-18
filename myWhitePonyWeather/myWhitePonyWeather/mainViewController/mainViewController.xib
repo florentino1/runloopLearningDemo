@@ -27,26 +27,26 @@
                     <rect key="frame" x="20" y="144" width="374" height="618"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="气温~°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1U-bW-EwR">
-                            <rect key="frame" x="0.0" y="0.0" width="374" height="114.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="141"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="最高气温~最低气温" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ok9-pI-fCX">
-                            <rect key="frame" x="0.0" y="245.5" width="374" height="32.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                            <rect key="frame" x="0.0" y="272" width="374" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="湿度 大气压" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5cC-8c-hO6">
-                            <rect key="frame" x="0.0" y="409" width="374" height="43"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                            <rect key="frame" x="0.0" y="433" width="374" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="更新时间" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3TQ-KA-LjS">
-                            <rect key="frame" x="0.0" y="583" width="374" height="35"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                            <rect key="frame" x="0.0" y="594" width="374" height="24"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>

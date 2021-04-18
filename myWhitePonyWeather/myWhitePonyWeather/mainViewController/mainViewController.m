@@ -8,6 +8,9 @@
 #import "mainViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "location.h"
+#import "userInfo.h"
+#import <AFNetworking.h>
+#import "weather.h"
 
 @interface mainViewController ()<CLLocationManagerDelegate>
 @property  (strong,nonatomic)CLLocationManager *locationManager;
@@ -29,13 +32,13 @@
 -(void)initUI
 {
     NSLog(@">>>开始进行UI初始化");
-    NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
-    CLLocationDegrees latitude=[userDefault doubleForKey:@"latitude"];
-    CLLocationDegrees longitude=[userDefault doubleForKey:@"longitude"];
+    userInfo *userlocation=[userInfo sharedUserInfo];
+    CLLocationDegrees latitude=[userlocation.latitude doubleValue];
+    CLLocationDegrees longitude=[userlocation.longitude doubleValue];
     if((int)latitude==(int)self.backLocation.latitude && (int)longitude==(int)self.backLocation.longitude)
     {
         NSLog(@">>>当前定位地址为用户缓存地址");
-        self.weatherLabel.text=[userDefault objectForKey:@"address"];
+        self.weatherLabel.text=userlocation.address;
         self.highlowtempretureLabel.text=[NSString stringWithFormat:@"当前位置的经纬度为：%f %f",latitude,longitude];
     }
     else
@@ -45,11 +48,21 @@
         self.highlowtempretureLabel.text=[NSString stringWithFormat:@"当前位置的经纬度为：%f %f",self.backLocation.latitude,self.backLocation.longitude];
     }
 }
--(void)freshUI
+-(void)freshUIWithWeather:(weather *)currentWeather
 {
     NSLog(@"用新地址刷新UI");
-    self.weatherLabel.text=self.backLocation.address;
-    self.highlowtempretureLabel.text=[NSString stringWithFormat:@"当前位置的经纬度为：%f %f",self.backLocation.latitude,self.backLocation.longitude];
+    self.weatherLabel.text=currentWeather.currentTempreture;
+    self.highlowtempretureLabel.text=currentWeather.highAndLowTempreture;
+    self.mismoLabel.text=currentWeather.mismo;
+    self.updateTimeLabel.text=currentWeather.updateTime;
+    //判断是否更新用户默认的地址userInfo
+    userInfo *userlocation=[userInfo sharedUserInfo];
+    CLLocationDegrees latitude=[userlocation.latitude doubleValue];
+    CLLocationDegrees longitude=[userlocation.longitude doubleValue];
+    if((int)latitude==(int)self.backLocation.latitude && (int)longitude==(int)self.backLocation.longitude)
+        NSLog(@">>>当前定位信息与用户默认地址相同，不更新userInfo");
+    else
+        [self updateCurrentLocationwithLatitude:self.backLocation.latitude longitude:self.backLocation.longitude];
 }
 #pragma mark-location
 -(void)initGPSComponent
@@ -123,17 +136,18 @@
                 NSLog(@">>>已获取经纬度所标识位置信息");
             //p=placemark;
             [self updateBackLocationwithLatitude:latitude longitude:longitude address:placemark.locality];
+            [self requestWeatherByLatitude:latitude longitude:longitude];
         }
     }];
     //return p;
 }
-//更新NSUserDefault中的当前位置信息；
+//更新Userinfo中的当前位置信息；
 -(void)updateCurrentLocationwithLatitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude
 {
-    NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
-    [userDefault setDouble:longitude forKey:@"longitude"];
-    [userDefault setDouble:latitude forKey:@"latitude"];
-    [userDefault setObject:self.backLocation.address forKey:@"address"];
+    userInfo *userlocation=[userInfo sharedUserInfo];
+    userlocation.latitude=[NSNumber numberWithDouble:latitude];
+    userlocation.longitude=[NSNumber numberWithDouble:longitude];
+    userlocation.address=self.backLocation.address;
     NSLog(@">>>已更新用户缓存地址");
 }
 -(void)updateBackLocationwithLatitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude address:(NSString *)address
@@ -145,8 +159,45 @@
     else
     {
         [self.backLocation updateWithLat:latitude lon:longitude address:address];
+    }}
+
+#pragma mark-请求服务器获取当前位置的天气信息
+-(void)requestWeatherByLatitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude
+{
+    NSString *mUrl = [NSString stringWithFormat:@"%@weather?lat=%f&lon=%f&units=metric&appid=%@",@"http://api.openweathermap.org/data/2.5/", latitude, longitude, @"0b0b4a71f90a8dd37c74fe8f38af9f3d"];
+
+    NSLog(@">>>请求当前地点天气情况,请求地址：%@", mUrl);
+    NSURL *url=[NSURL URLWithString:mUrl];
+    NSURLRequest *request=[NSURLRequest requestWithURL:url];
+    NSURLSessionConfiguration *defaultConfig=[NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager=[[AFURLSessionManager alloc]initWithSessionConfiguration:defaultConfig];
+    NSURLSessionDownloadTask *task=[manager downloadTaskWithRequest:request
+                                                           progress:nil
+                                                        destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        NSString *filePathString=[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:response.suggestedFilename];
+        NSLog(@"%@",filePathString);
+        return [NSURL fileURLWithPath:filePathString];
     }
-    [self freshUI];
+                                                  completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        NSLog(@"File downloaded to: %@", filePath);
+        NSData *data=[NSData dataWithContentsOfURL:filePath options:NSDataReadingMappedIfSafe error:&error];
+        NSDictionary *dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingFragmentsAllowed error:&error];
+        if(dic)
+            NSLog(@">>>请求当地的天气信息已获取");
+        [self initWithcurrentweatherInfo:dic];
+    }];
+    [task resume];
+}
+-(void)initWithcurrentweatherInfo:(NSDictionary *)dic
+{
+    NSDictionary *main=[dic objectForKey:@"main"];
+    NSString *currentTem=[NSString stringWithFormat:@"当前：%@° 体感：%@°",[main objectForKey:@"temp"],[main objectForKey:@"feels_like"]];
+    NSString *hltemp=[NSString stringWithFormat:@"最高：%@° 最低：%@°",[main objectForKey:@"temp_max"],[main objectForKey:@"temp_min"]];
+    NSString *mismo=[NSString stringWithFormat:@"大气压：%@ pa 湿度：%@",[main objectForKey:@"pressure"],[main objectForKey:@"humidity"]];
+    NSDate *time=[NSDate date];
+    NSString *timenow=[NSString stringWithFormat:@"%@",time];
+    weather *currentWeather=[[weather alloc]initWithCurrentTem:currentTem hLtem:hltemp mismo:mismo updateTime:timenow];
+    [self freshUIWithWeather:currentWeather];
 }
 /*
 #pragma mark - Navigation

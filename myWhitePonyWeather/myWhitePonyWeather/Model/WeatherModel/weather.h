@@ -13,8 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic)NSString *currentTempreture;//当前的气温;
 @property (strong,nonatomic)NSString *highAndLowTempreture;//当日最高及最低气温
 @property (strong,nonatomic)NSString *mismo;//当前的湿度与大气压
-@property (strong,nonatomic)NSString *updateTimeLabel;//刷新的时间;
-
+@property (strong,nonatomic)NSString *updateTime;//刷新的时间;
+-(instancetype)initWithCurrentTem:(NSString *)currentTem hLtem:(NSString *)highLowTem mismo:(NSString *)mismo updateTime:(NSString *)time;
 @end
 
 NS_ASSUME_NONNULL_END

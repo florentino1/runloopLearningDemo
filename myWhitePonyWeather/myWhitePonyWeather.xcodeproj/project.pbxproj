@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8148CCA5262C21B6002D91D8 /* userInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8148CCA4262C21B6002D91D8 /* userInfo.m */; };
 		81ADCBA52625E50E00EBF5CD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCBA42625E50E00EBF5CD /* AppDelegate.m */; };
 		81ADCBA82625E50E00EBF5CD /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCBA72625E50E00EBF5CD /* SceneDelegate.m */; };
 		81ADCBB02625E51300EBF5CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81ADCBAF2625E51300EBF5CD /* Assets.xcassets */; };
@@ -25,6 +26,8 @@
 
 /* Begin PBXFileReference section */
 		49BD7011CC12527013BC8861 /* Pods-myWhitePonyWeather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myWhitePonyWeather.debug.xcconfig"; path = "Target Support Files/Pods-myWhitePonyWeather/Pods-myWhitePonyWeather.debug.xcconfig"; sourceTree = "<group>"; };
+		8148CCA3262C21B6002D91D8 /* userInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = userInfo.h; sourceTree = "<group>"; };
+		8148CCA4262C21B6002D91D8 /* userInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = userInfo.m; sourceTree = "<group>"; };
 		81ADCBA02625E50E00EBF5CD /* myWhitePonyWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myWhitePonyWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81ADCBA32625E50E00EBF5CD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		81ADCBA42625E50E00EBF5CD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -78,6 +81,15 @@
 				8650A647AEBB2D7356005B17 /* libPods-myWhitePonyWeather.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8148CCA2262C2199002D91D8 /* userDefault */ = {
+			isa = PBXGroup;
+			children = (
+				8148CCA3262C21B6002D91D8 /* userInfo.h */,
+				8148CCA4262C21B6002D91D8 /* userInfo.m */,
+			);
+			path = userDefault;
 			sourceTree = "<group>";
 		};
 		81ADCB972625E50E00EBF5CD = {
@@ -142,6 +154,7 @@
 		81ADCC89262BC16900EBF5CD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8148CCA2262C2199002D91D8 /* userDefault */,
 				81ADCC8B262BC17F00EBF5CD /* WeatherModel */,
 				81ADCC8A262BC17200EBF5CD /* LocationModel */,
 			);
@@ -264,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81ADCBA52625E50E00EBF5CD /* AppDelegate.m in Sources */,
+				8148CCA5262C21B6002D91D8 /* userInfo.m in Sources */,
 				81ADCC27262AE68000EBF5CD /* leftViewController.m in Sources */,
 				81ADCBB62625E51300EBF5CD /* main.m in Sources */,
 				81ADCC72262BBD5700EBF5CD /* mainViewController.m in Sources */,

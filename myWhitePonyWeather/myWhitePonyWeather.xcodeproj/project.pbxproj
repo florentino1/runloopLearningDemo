@@ -16,6 +16,10 @@
 		81ADCC1C262A9A6100EBF5CD /* leftTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81ADCC1A262A9A6100EBF5CD /* leftTableViewCell.xib */; };
 		81ADCC27262AE68000EBF5CD /* leftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCC25262AE67F00EBF5CD /* leftViewController.m */; };
 		81ADCC28262AE68000EBF5CD /* leftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81ADCC26262AE67F00EBF5CD /* leftViewController.xib */; };
+		81ADCC72262BBD5700EBF5CD /* mainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCC70262BBD5700EBF5CD /* mainViewController.m */; };
+		81ADCC73262BBD5700EBF5CD /* mainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81ADCC71262BBD5700EBF5CD /* mainViewController.xib */; };
+		81ADCC8E262BC19700EBF5CD /* weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCC8D262BC19700EBF5CD /* weather.m */; };
+		81ADCC93262BC1AA00EBF5CD /* location.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCC92262BC1AA00EBF5CD /* location.m */; };
 		873FB08F1E3D0BD76CBD6F47 /* libPods-myWhitePonyWeather.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8650A647AEBB2D7356005B17 /* libPods-myWhitePonyWeather.a */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +40,13 @@
 		81ADCC24262AE67F00EBF5CD /* leftViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = leftViewController.h; sourceTree = "<group>"; };
 		81ADCC25262AE67F00EBF5CD /* leftViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = leftViewController.m; sourceTree = "<group>"; };
 		81ADCC26262AE67F00EBF5CD /* leftViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = leftViewController.xib; sourceTree = "<group>"; };
+		81ADCC6F262BBD5700EBF5CD /* mainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mainViewController.h; path = mainViewController/mainViewController.h; sourceTree = "<group>"; };
+		81ADCC70262BBD5700EBF5CD /* mainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = mainViewController.m; path = mainViewController/mainViewController.m; sourceTree = "<group>"; };
+		81ADCC71262BBD5700EBF5CD /* mainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = mainViewController.xib; path = mainViewController/mainViewController.xib; sourceTree = "<group>"; };
+		81ADCC8C262BC19700EBF5CD /* weather.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = weather.h; sourceTree = "<group>"; };
+		81ADCC8D262BC19700EBF5CD /* weather.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = weather.m; sourceTree = "<group>"; };
+		81ADCC91262BC1AA00EBF5CD /* location.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = location.h; sourceTree = "<group>"; };
+		81ADCC92262BC1AA00EBF5CD /* location.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = location.m; sourceTree = "<group>"; };
 		8650A647AEBB2D7356005B17 /* libPods-myWhitePonyWeather.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-myWhitePonyWeather.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3AA3292EF080CE4CC595941 /* Pods-myWhitePonyWeather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myWhitePonyWeather.release.xcconfig"; path = "Target Support Files/Pods-myWhitePonyWeather/Pods-myWhitePonyWeather.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,8 +109,12 @@
 				81ADCBB12625E51300EBF5CD /* LaunchScreen.storyboard */,
 				81ADCBB42625E51300EBF5CD /* Info.plist */,
 				81ADCBB52625E51300EBF5CD /* main.m */,
+				81ADCC89262BC16900EBF5CD /* Model */,
 				81ADCC2A262AE68600EBF5CD /* leftViewController */,
 				81ADCC17262A9A4600EBF5CD /* tableViewCell */,
+				81ADCC6F262BBD5700EBF5CD /* mainViewController.h */,
+				81ADCC70262BBD5700EBF5CD /* mainViewController.m */,
+				81ADCC71262BBD5700EBF5CD /* mainViewController.xib */,
 			);
 			path = myWhitePonyWeather;
 			sourceTree = "<group>";
@@ -122,6 +137,33 @@
 				81ADCC26262AE67F00EBF5CD /* leftViewController.xib */,
 			);
 			path = leftViewController;
+			sourceTree = "<group>";
+		};
+		81ADCC89262BC16900EBF5CD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				81ADCC8B262BC17F00EBF5CD /* WeatherModel */,
+				81ADCC8A262BC17200EBF5CD /* LocationModel */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		81ADCC8A262BC17200EBF5CD /* LocationModel */ = {
+			isa = PBXGroup;
+			children = (
+				81ADCC91262BC1AA00EBF5CD /* location.h */,
+				81ADCC92262BC1AA00EBF5CD /* location.m */,
+			);
+			path = LocationModel;
+			sourceTree = "<group>";
+		};
+		81ADCC8B262BC17F00EBF5CD /* WeatherModel */ = {
+			isa = PBXGroup;
+			children = (
+				81ADCC8C262BC19700EBF5CD /* weather.h */,
+				81ADCC8D262BC19700EBF5CD /* weather.m */,
+			);
+			path = WeatherModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81ADCC1C262A9A6100EBF5CD /* leftTableViewCell.xib in Resources */,
+				81ADCC73262BBD5700EBF5CD /* mainViewController.xib in Resources */,
 				81ADCC28262AE68000EBF5CD /* leftViewController.xib in Resources */,
 				81ADCBB32625E51300EBF5CD /* LaunchScreen.storyboard in Resources */,
 				81ADCBB02625E51300EBF5CD /* Assets.xcassets in Resources */,
@@ -223,8 +266,11 @@
 				81ADCBA52625E50E00EBF5CD /* AppDelegate.m in Sources */,
 				81ADCC27262AE68000EBF5CD /* leftViewController.m in Sources */,
 				81ADCBB62625E51300EBF5CD /* main.m in Sources */,
+				81ADCC72262BBD5700EBF5CD /* mainViewController.m in Sources */,
 				81ADCC1B262A9A6100EBF5CD /* leftTableViewCell.m in Sources */,
 				81ADCBA82625E50E00EBF5CD /* SceneDelegate.m in Sources */,
+				81ADCC93262BC1AA00EBF5CD /* location.m in Sources */,
+				81ADCC8E262BC19700EBF5CD /* weather.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

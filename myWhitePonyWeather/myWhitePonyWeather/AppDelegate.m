@@ -8,6 +8,8 @@
 #import "AppDelegate.h"
 #import <PKRevealController.h>
 #import "leftViewController/leftViewController.h"
+#import "mainViewController.h"
+
 
 @interface AppDelegate ()<PKRevealing>
 @property (strong,nonatomic)PKRevealController *revealViewController;
@@ -21,13 +23,11 @@
     // Override point for customization after application launch.
     self.window=[[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    UIViewController *mainViewController=[[UIViewController alloc]init];
-    mainViewController.view.backgroundColor=[UIColor whiteColor];
-    mainViewController.navigationItem.title=@"开始进行定位...";
-
-    UINavigationController *mainNavigationController=[[UINavigationController alloc]initWithRootViewController:mainViewController];
-    leftViewController *viewController=[self creatLeftViewController];
-    self.revealViewController=[PKRevealController revealControllerWithFrontViewController:mainNavigationController leftViewController:viewController];
+    mainViewController *viewController=[[mainViewController alloc]initWithNibName:@"mainViewController" bundle:[NSBundle mainBundle]];
+    
+    UINavigationController *mainNavigationController=[[UINavigationController alloc]initWithRootViewController:viewController];
+    leftViewController *sideviewController=[self creatLeftViewController];
+    self.revealViewController=[PKRevealController revealControllerWithFrontViewController:mainNavigationController leftViewController:sideviewController];
     self.revealViewController.delegate=self;
     self.window.rootViewController=self.revealViewController;
     [self.window makeKeyAndVisible];
@@ -39,6 +39,7 @@
     return ViewController;
 
 }
+
 #pragma mark - UISceneSession lifecycle
 
 /*

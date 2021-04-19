@@ -11,6 +11,7 @@
 #import "userInfo.h"
 #import <AFNetworking.h>
 #import "weather.h"
+#import "DBManager.h"
 
 @interface mainViewController ()<CLLocationManagerDelegate>
 @property  (strong,nonatomic)CLLocationManager *locationManager;
@@ -160,7 +161,7 @@
     [dic setObject:userlocation.latitude forKey:@"latitude"];
     [dic setObject:userlocation.longitude forKey:@"longitude"];
     [dic writeToFile:path atomically:YES];
-    NSLog(@">>>已更新用户缓存地址");
+        NSLog(@">>>已更新用户缓存地址");
 }
 -(void)updateBackLocationwithLatitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude address:(NSString *)address
 {
@@ -171,7 +172,8 @@
     else
     {
         [self.backLocation updateWithLat:latitude lon:longitude address:address];
-    }}
+    }
+}
 
 #pragma mark-请求服务器获取当前位置的天气信息
 -(void)requestWeatherByLatitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude

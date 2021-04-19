@@ -9,6 +9,7 @@
 #import <PKRevealController.h>
 #import "leftViewController/leftViewController.h"
 #import "mainViewController.h"
+#import "DBManager.h"
 
 
 @interface AppDelegate ()<PKRevealing>
@@ -31,6 +32,11 @@
     self.revealViewController.delegate=self;
     self.window.rootViewController=self.revealViewController;
     [self.window makeKeyAndVisible];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^
+                   {
+        DBManager *manager=[DBManager sharedDB];
+        [manager initDB];
+    });
     return YES;
 }
 -(leftViewController *)creatLeftViewController

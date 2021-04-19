@@ -12,6 +12,7 @@
 #import <AFNetworking.h>
 #import "weather.h"
 #import "DBManager.h"
+#import "AppDelegate.h"
 
 @interface mainViewController ()<CLLocationManagerDelegate>
 @property  (strong,nonatomic)CLLocationManager *locationManager;
@@ -37,6 +38,8 @@
     NSDictionary *dic=[NSDictionary dictionaryWithContentsOfFile:path];
     userInfo *userlocation=[userInfo sharedUserInfo];
     [userlocation updateFromDic:dic];
+    self.navigationController.navigationBar.barStyle=UIBarStyleBlack;
+    [self initMoreButton];
 /*  CLLocationDegrees latitude=[userlocation.latitude doubleValue];
     CLLocationDegrees longitude=[userlocation.longitude doubleValue];
     if((int)latitude==(int)self.backLocation.latitude && (int)longitude==(int)self.backLocation.longitude)
@@ -52,6 +55,21 @@
         self.highlowtempretureLabel.text=[NSString stringWithFormat:@"当前位置的经纬度为：%f %f",self.backLocation.latitude,self.backLocation.longitude];
     }
    */
+}
+-(void)initMoreButton
+{
+    UIButton *button=[[UIButton alloc]initWithFrame:CGRectMake(0, 20, 44, 44)];
+    [button setImage:[UIImage imageNamed:@"settings_icon"] forState:UIControlStateNormal];
+    button.showsTouchWhenHighlighted=YES;
+    button.backgroundColor=[UIColor clearColor];
+    button.imageEdgeInsets=UIEdgeInsetsMake(0, 0, 0, 0);
+    [button addTarget:self action:@selector(showLeftView) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithCustomView:button];
+}
+-(void)showLeftView
+{
+    AppDelegate *del=[[UIApplication sharedApplication] delegate];
+    [del showLeftViewController];
 }
 -(void)freshUIWithWeather:(weather *)currentWeather
 {

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		8148CCA5262C21B6002D91D8 /* userInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8148CCA4262C21B6002D91D8 /* userInfo.m */; };
 		8148CCC1262D6FF7002D91D8 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8148CCC0262D6FF7002D91D8 /* DBManager.m */; };
+		8148CCD2262D9F03002D91D8 /* mainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81ADCC71262BBD5700EBF5CD /* mainViewController.xib */; };
+		8148CCD8262DA250002D91D8 /* locationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8148CCD6262DA250002D91D8 /* locationViewController.m */; };
+		8148CCD9262DA250002D91D8 /* locationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8148CCD7262DA250002D91D8 /* locationViewController.xib */; };
 		81ADCBA52625E50E00EBF5CD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCBA42625E50E00EBF5CD /* AppDelegate.m */; };
 		81ADCBA82625E50E00EBF5CD /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCBA72625E50E00EBF5CD /* SceneDelegate.m */; };
 		81ADCBB02625E51300EBF5CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81ADCBAF2625E51300EBF5CD /* Assets.xcassets */; };
@@ -19,7 +22,6 @@
 		81ADCC27262AE68000EBF5CD /* leftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCC25262AE67F00EBF5CD /* leftViewController.m */; };
 		81ADCC28262AE68000EBF5CD /* leftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81ADCC26262AE67F00EBF5CD /* leftViewController.xib */; };
 		81ADCC72262BBD5700EBF5CD /* mainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCC70262BBD5700EBF5CD /* mainViewController.m */; };
-		81ADCC73262BBD5700EBF5CD /* mainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81ADCC71262BBD5700EBF5CD /* mainViewController.xib */; };
 		81ADCC8E262BC19700EBF5CD /* weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCC8D262BC19700EBF5CD /* weather.m */; };
 		81ADCC93262BC1AA00EBF5CD /* location.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADCC92262BC1AA00EBF5CD /* location.m */; };
 		873FB08F1E3D0BD76CBD6F47 /* libPods-myWhitePonyWeather.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8650A647AEBB2D7356005B17 /* libPods-myWhitePonyWeather.a */; };
@@ -31,6 +33,9 @@
 		8148CCA4262C21B6002D91D8 /* userInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = userInfo.m; sourceTree = "<group>"; };
 		8148CCBF262D6FF7002D91D8 /* DBManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		8148CCC0262D6FF7002D91D8 /* DBManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		8148CCD5262DA250002D91D8 /* locationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = locationViewController.h; sourceTree = "<group>"; };
+		8148CCD6262DA250002D91D8 /* locationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = locationViewController.m; sourceTree = "<group>"; };
+		8148CCD7262DA250002D91D8 /* locationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = locationViewController.xib; sourceTree = "<group>"; };
 		81ADCBA02625E50E00EBF5CD /* myWhitePonyWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myWhitePonyWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81ADCBA32625E50E00EBF5CD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		81ADCBA42625E50E00EBF5CD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -46,9 +51,9 @@
 		81ADCC24262AE67F00EBF5CD /* leftViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = leftViewController.h; sourceTree = "<group>"; };
 		81ADCC25262AE67F00EBF5CD /* leftViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = leftViewController.m; sourceTree = "<group>"; };
 		81ADCC26262AE67F00EBF5CD /* leftViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = leftViewController.xib; sourceTree = "<group>"; };
-		81ADCC6F262BBD5700EBF5CD /* mainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mainViewController.h; path = mainViewController/mainViewController.h; sourceTree = "<group>"; };
-		81ADCC70262BBD5700EBF5CD /* mainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = mainViewController.m; path = mainViewController/mainViewController.m; sourceTree = "<group>"; };
-		81ADCC71262BBD5700EBF5CD /* mainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = mainViewController.xib; path = mainViewController/mainViewController.xib; sourceTree = "<group>"; };
+		81ADCC6F262BBD5700EBF5CD /* mainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mainViewController.h; sourceTree = "<group>"; };
+		81ADCC70262BBD5700EBF5CD /* mainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mainViewController.m; sourceTree = "<group>"; };
+		81ADCC71262BBD5700EBF5CD /* mainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = mainViewController.xib; sourceTree = "<group>"; };
 		81ADCC8C262BC19700EBF5CD /* weather.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = weather.h; sourceTree = "<group>"; };
 		81ADCC8D262BC19700EBF5CD /* weather.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = weather.m; sourceTree = "<group>"; };
 		81ADCC91262BC1AA00EBF5CD /* location.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = location.h; sourceTree = "<group>"; };
@@ -104,6 +109,26 @@
 			path = DBManager;
 			sourceTree = "<group>";
 		};
+		8148CCD0262D9E5A002D91D8 /* mainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				81ADCC6F262BBD5700EBF5CD /* mainViewController.h */,
+				81ADCC70262BBD5700EBF5CD /* mainViewController.m */,
+				81ADCC71262BBD5700EBF5CD /* mainViewController.xib */,
+			);
+			path = mainViewController;
+			sourceTree = "<group>";
+		};
+		8148CCD4262DA220002D91D8 /* locationViewontroller */ = {
+			isa = PBXGroup;
+			children = (
+				8148CCD5262DA250002D91D8 /* locationViewController.h */,
+				8148CCD6262DA250002D91D8 /* locationViewController.m */,
+				8148CCD7262DA250002D91D8 /* locationViewController.xib */,
+			);
+			path = locationViewontroller;
+			sourceTree = "<group>";
+		};
 		81ADCB972625E50E00EBF5CD = {
 			isa = PBXGroup;
 			children = (
@@ -133,12 +158,10 @@
 				81ADCBB12625E51300EBF5CD /* LaunchScreen.storyboard */,
 				81ADCBB42625E51300EBF5CD /* Info.plist */,
 				81ADCBB52625E51300EBF5CD /* main.m */,
+				8148CCD0262D9E5A002D91D8 /* mainViewController */,
 				81ADCC89262BC16900EBF5CD /* Model */,
 				81ADCC2A262AE68600EBF5CD /* leftViewController */,
 				81ADCC17262A9A4600EBF5CD /* tableViewCell */,
-				81ADCC6F262BBD5700EBF5CD /* mainViewController.h */,
-				81ADCC70262BBD5700EBF5CD /* mainViewController.m */,
-				81ADCC71262BBD5700EBF5CD /* mainViewController.xib */,
 			);
 			path = myWhitePonyWeather;
 			sourceTree = "<group>";
@@ -159,6 +182,7 @@
 				81ADCC24262AE67F00EBF5CD /* leftViewController.h */,
 				81ADCC25262AE67F00EBF5CD /* leftViewController.m */,
 				81ADCC26262AE67F00EBF5CD /* leftViewController.xib */,
+				8148CCD4262DA220002D91D8 /* locationViewontroller */,
 			);
 			path = leftViewController;
 			sourceTree = "<group>";
@@ -249,9 +273,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8148CCD2262D9F03002D91D8 /* mainViewController.xib in Resources */,
 				81ADCC1C262A9A6100EBF5CD /* leftTableViewCell.xib in Resources */,
-				81ADCC73262BBD5700EBF5CD /* mainViewController.xib in Resources */,
 				81ADCC28262AE68000EBF5CD /* leftViewController.xib in Resources */,
+				8148CCD9262DA250002D91D8 /* locationViewController.xib in Resources */,
 				81ADCBB32625E51300EBF5CD /* LaunchScreen.storyboard in Resources */,
 				81ADCBB02625E51300EBF5CD /* Assets.xcassets in Resources */,
 			);
@@ -293,6 +318,7 @@
 				8148CCA5262C21B6002D91D8 /* userInfo.m in Sources */,
 				81ADCC27262AE68000EBF5CD /* leftViewController.m in Sources */,
 				81ADCBB62625E51300EBF5CD /* main.m in Sources */,
+				8148CCD8262DA250002D91D8 /* locationViewController.m in Sources */,
 				81ADCC72262BBD5700EBF5CD /* mainViewController.m in Sources */,
 				81ADCC1B262A9A6100EBF5CD /* leftTableViewCell.m in Sources */,
 				81ADCBA82625E50E00EBF5CD /* SceneDelegate.m in Sources */,
@@ -432,6 +458,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49BD7011CC12527013BC8861 /* Pods-myWhitePonyWeather.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -451,6 +478,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E3AA3292EF080CE4CC595941 /* Pods-myWhitePonyWeather.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;

@@ -45,7 +45,10 @@
     return ViewController;
 
 }
-
+-(void)showLeftViewController
+{
+    [self.revealViewController showViewController:self.revealViewController.leftViewController animated:true completion:nil];
+}
 #pragma mark - UISceneSession lifecycle
 
 /*

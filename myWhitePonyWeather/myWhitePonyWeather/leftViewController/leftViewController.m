@@ -7,6 +7,7 @@
 
 #import "leftViewController.h"
 #import "leftTableViewCell.h"
+#import "locationViewController.h"
 
 @interface leftViewController ()<UITableViewDelegate,UITableViewDataSource>
 //@property (strong, nonatomic) IBOutlet UIView *containerView;
@@ -65,6 +66,14 @@ self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 60;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        locationViewController *lvc=[[locationViewController alloc]init];
+        UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:lvc];
+        [self presentViewController:nav animated:TRUE completion:nil];
+    });
 }
 /*
 #pragma mark - Navigation

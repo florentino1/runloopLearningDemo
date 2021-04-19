@@ -32,14 +32,17 @@
 -(void)initUI
 {
     NSLog(@">>>开始进行UI初始化");
+    NSString *path=[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject]stringByAppendingPathComponent:@"userDefaults"];
+    NSDictionary *dic=[NSDictionary dictionaryWithContentsOfFile:path];
     userInfo *userlocation=[userInfo sharedUserInfo];
-    CLLocationDegrees latitude=[userlocation.latitude doubleValue];
+    [userlocation updateFromDic:dic];
+/*  CLLocationDegrees latitude=[userlocation.latitude doubleValue];
     CLLocationDegrees longitude=[userlocation.longitude doubleValue];
     if((int)latitude==(int)self.backLocation.latitude && (int)longitude==(int)self.backLocation.longitude)
     {
         NSLog(@">>>当前定位地址为用户缓存地址");
-        self.weatherLabel.text=userlocation.address;
-        self.highlowtempretureLabel.text=[NSString stringWithFormat:@"当前位置的经纬度为：%f %f",latitude,longitude];
+        self.weatherLabel.text=@"";
+        self.highlowtempretureLabel.text=@"";
     }
     else
     {
@@ -47,6 +50,7 @@
         self.weatherLabel.text=self.backLocation.address;
         self.highlowtempretureLabel.text=[NSString stringWithFormat:@"当前位置的经纬度为：%f %f",self.backLocation.latitude,self.backLocation.longitude];
     }
+   */
 }
 -(void)freshUIWithWeather:(weather *)currentWeather
 {
@@ -55,6 +59,7 @@
     self.highlowtempretureLabel.text=currentWeather.highAndLowTempreture;
     self.mismoLabel.text=currentWeather.mismo;
     self.updateTimeLabel.text=currentWeather.updateTime;
+    self.navigationItem.title=self.backLocation.address;
     //判断是否更新用户默认的地址userInfo
     userInfo *userlocation=[userInfo sharedUserInfo];
     CLLocationDegrees latitude=[userlocation.latitude doubleValue];
@@ -101,6 +106,7 @@
             //启动跟踪定位
             [self.locationManager startUpdatingLocation];
             NSLog(@">>>开始进行定位");
+            self.navigationItem.title=@"正在进行定位...";
             break;
         }
 
@@ -145,9 +151,15 @@
 -(void)updateCurrentLocationwithLatitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude
 {
     userInfo *userlocation=[userInfo sharedUserInfo];
+    NSString *path=[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject]stringByAppendingPathComponent:@"userDefaults"];
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
     userlocation.latitude=[NSNumber numberWithDouble:latitude];
     userlocation.longitude=[NSNumber numberWithDouble:longitude];
     userlocation.address=self.backLocation.address;
+    [dic setObject:userlocation.address forKey:@"address"];
+    [dic setObject:userlocation.latitude forKey:@"latitude"];
+    [dic setObject:userlocation.longitude forKey:@"longitude"];
+    [dic writeToFile:path atomically:YES];
     NSLog(@">>>已更新用户缓存地址");
 }
 -(void)updateBackLocationwithLatitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude address:(NSString *)address

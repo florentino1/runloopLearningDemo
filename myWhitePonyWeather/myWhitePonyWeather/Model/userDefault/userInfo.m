@@ -17,5 +17,10 @@
     });
     return userlocation;
 }
-
+-(void)updateFromDic:(NSDictionary *)dic
+{
+    _address=[dic objectForKey:@"address"];
+    _latitude=[dic objectForKey:@"latitude"];
+    _longitude=[dic objectForKey:@"longitude"];
+}
 @end

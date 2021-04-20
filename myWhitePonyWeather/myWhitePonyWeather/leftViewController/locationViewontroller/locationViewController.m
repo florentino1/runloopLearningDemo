@@ -9,8 +9,10 @@
 #import "DBManager.h"
 #import "userInfo.h"
 #import "location.h"
+#import "AppDelegate.h"
 
-@interface locationViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface locationViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UITableView *locationTableView;
 @property (strong,nonatomic)NSMutableArray *cityInfo;//来自于数据库的城市坐标信息;
 //@property (strong,nonatomic)NSArray *cityDesc;//将表格分为两个区，一个热门城市，一个来自cityInfoFromDB；
@@ -27,6 +29,7 @@
 
     _locationTableView.delegate=self;
     _locationTableView.dataSource=self;
+    _searchBar.delegate=self;
     [self initNavButton];
 
     _cityInfo=[[DBManager sharedDB] getAllLocations];
@@ -43,15 +46,56 @@
     [button setImage:[UIImage imageNamed:@"back_button_image"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(backPage:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+
+    UIButton *rightButton=[[UIButton alloc]initWithFrame:CGRectMake(0, -20, 44, 44)];
+    rightButton.backgroundColor=[UIColor clearColor];
+    rightButton.showsTouchWhenHighlighted=YES;
+    rightButton.imageEdgeInsets=UIEdgeInsetsMake(0, 0, 0, 0);
+   // [rightButton setImage:[UIImage imageNamed:@"theme_icon"] forState:UIControlStateNormal];
+    [rightButton setTitle:@"new" forState:UIControlStateNormal];
+    [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(addNewCity) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithCustomView:rightButton];
+    
 }
 - (void)backPage:(id)sender {
     [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+-(void)addNewCity
+{
+    [_searchBar becomeFirstResponder];
+
+}
+#pragma mark-searchBar delegate
+-(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    return YES;
+}
+-(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    return YES;
+}
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [self.searchBar resignFirstResponder];
+    [self dismissViewControllerAnimated:true completion:nil];
+    NSString *string=self.searchBar.searchTextField.text;
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    [dic setObject:string forKey:@"address"];
+    [self beginSearch:dic];
+}
+-(void)beginSearch:(NSMutableDictionary *)dic
+{
+    NSNotification *nt=[[NSNotification alloc]initWithName:@"search" object:nil userInfo:dic];
+    NSNotificationCenter *defaultCenter=[NSNotificationCenter defaultCenter];
+    [defaultCenter postNotification:nt];
+    NSLog(@">>>开始进行地理位置反编码获取天气信息");
+}
 #pragma mark-UITableViewDelegate/datasource delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section==1) {
+    if (section==0 ) {
         return 1;
     }
     else
@@ -59,11 +103,14 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    if(_cityInfo.count==0)
+        return 1;
+    else
+        return 2;
 }
 - (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (section==1) {
+    if (section==0) {
         NSString *string=@"当前定位：";
         return string;
     }
@@ -79,7 +126,7 @@
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     }
-    if (indexPath.section==1) {
+    if (indexPath.section==0) {
         userInfo *userLocation=[userInfo sharedUserInfo];
         cell.textLabel.text=userLocation.address;
     }

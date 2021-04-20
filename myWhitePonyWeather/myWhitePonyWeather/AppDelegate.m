@@ -49,6 +49,10 @@
 {
     [self.revealViewController showViewController:self.revealViewController.leftViewController animated:true completion:nil];
 }
+-(void)hideLeftViewController
+{
+    [self.revealViewController dismissViewControllerAnimated:self.revealViewController.leftViewController completion:nil];
+}
 #pragma mark - UISceneSession lifecycle
 
 /*

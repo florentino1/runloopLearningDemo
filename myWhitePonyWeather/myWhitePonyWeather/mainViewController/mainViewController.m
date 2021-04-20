@@ -29,6 +29,7 @@
     [self initGPSComponent];
     self.backLocation=[[location alloc]init];
     [self initUI];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getCoordinateByAddress:) name:@"search" object:nil];
 
 }
 -(void)initUI
@@ -39,6 +40,7 @@
     userInfo *userlocation=[userInfo sharedUserInfo];
     [userlocation updateFromDic:dic];
     self.navigationController.navigationBar.barStyle=UIBarStyleBlack;
+    [self initRefreshButton];
     [self initMoreButton];
 /*  CLLocationDegrees latitude=[userlocation.latitude doubleValue];
     CLLocationDegrees longitude=[userlocation.longitude doubleValue];
@@ -56,6 +58,35 @@
     }
    */
 }
+-(void)updateUserDefault
+{
+    //判断是否更新用户默认的地址userInfo
+    userInfo *userlocation=[userInfo sharedUserInfo];
+    CLLocationDegrees latitude=[userlocation.latitude doubleValue];
+    CLLocationDegrees longitude=[userlocation.longitude doubleValue];
+    if(latitude==0 && longitude==0 )
+    {
+        NSLog(@">>>userDefaults 为0,进行初始化");
+        [self updateCurrentLocationwithLatitude:self.backLocation.latitude longitude:self.backLocation.longitude];
+
+    }
+    else if((int)latitude==(int)self.backLocation.latitude && (int)longitude==(int)self.backLocation.longitude)
+        NSLog(@">>>当前定位信息与用户默认地址相同，不更新userInfo");
+    else
+        NSLog(@">>>显示额外地点天气信息，不更新userDefaults");
+   //     [self updateCurrentLocationwithLatitude:self.backLocation.latitude longitude:self.backLocation.longitude];
+}
+-(void)initRefreshButton
+{
+    UIButton *button=[[UIButton alloc]initWithFrame:CGRectMake(0, 20, 44, 44)];
+    button.showsTouchWhenHighlighted=YES;
+    button.backgroundColor=[UIColor clearColor];
+    [button setTitle:@"refresh" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    button.imageEdgeInsets=UIEdgeInsetsMake(0, 0, 0, 0);
+    [button addTarget:self action:@selector(fresh) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithCustomView:button];
+}
 -(void)initMoreButton
 {
     UIButton *button=[[UIButton alloc]initWithFrame:CGRectMake(0, 20, 44, 44)];
@@ -71,22 +102,20 @@
     AppDelegate *del=[[UIApplication sharedApplication] delegate];
     [del showLeftViewController];
 }
+-(void)fresh
+{
+    [self.locationManager startUpdatingLocation];
+    self.navigationItem.title=@"正在进行定位";
+}
 -(void)freshUIWithWeather:(weather *)currentWeather
 {
-    NSLog(@"用新地址刷新UI");
+    [self updateUserDefault];
+    NSLog(@"刷新UI");
     self.weatherLabel.text=currentWeather.currentTempreture;
     self.highlowtempretureLabel.text=currentWeather.highAndLowTempreture;
     self.mismoLabel.text=currentWeather.mismo;
     self.updateTimeLabel.text=currentWeather.updateTime;
     self.navigationItem.title=self.backLocation.address;
-    //判断是否更新用户默认的地址userInfo
-    userInfo *userlocation=[userInfo sharedUserInfo];
-    CLLocationDegrees latitude=[userlocation.latitude doubleValue];
-    CLLocationDegrees longitude=[userlocation.longitude doubleValue];
-    if((int)latitude==(int)self.backLocation.latitude && (int)longitude==(int)self.backLocation.longitude)
-        NSLog(@">>>当前定位信息与用户默认地址相同，不更新userInfo");
-    else
-        [self updateCurrentLocationwithLatitude:self.backLocation.latitude longitude:self.backLocation.longitude];
 }
 #pragma mark-location
 -(void)initGPSComponent
@@ -165,6 +194,28 @@
         }
     }];
     //return p;
+}
+//通过地名获取经纬度坐标
+-(void)getCoordinateByAddress:(NSNotification *)notification
+{
+    NSDictionary *userInfo=notification.userInfo;
+    [_geoCoder geocodeAddressString:[userInfo objectForKey:@"address"] completionHandler:^(NSArray * placemarks,NSError *error){
+        CLPlacemark *placemark=[placemarks firstObject];
+        CLLocation *loc=placemark.location;
+        CLLocationDegrees lat=loc.coordinate.latitude;
+        CLLocationDegrees lon=loc.coordinate.longitude;
+        NSString *name=placemark.locality;
+        self.backLocation.latitude=lat;
+        self.backLocation.longitude=lon;
+        self.backLocation.address=name;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[DBManager sharedDB]insertLocationWithAddress:name latitude:lat longitude:lon];
+        });
+        AppDelegate *del=[[UIApplication sharedApplication] delegate];
+        [del hideLeftViewController];
+        [self becomeFirstResponder];
+        [self requestWeatherByLatitude:lat longitude:lon];
+    }];
 }
 //更新Userinfo中的当前位置信息；
 -(void)updateCurrentLocationwithLatitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude

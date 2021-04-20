@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="locationViewController">
             <connections>
                 <outlet property="locationTableView" destination="HE6-bb-FWj" id="iZG-Wh-3W2"/>
+                <outlet property="searchBar" destination="S2X-Ui-qFo" id="ZYK-Th-c1V"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

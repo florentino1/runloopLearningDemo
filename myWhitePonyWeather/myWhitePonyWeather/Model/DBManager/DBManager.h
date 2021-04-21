@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)createTab;
 -(void)insertLocationWithAddress:(NSString *)address latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude;
 -(NSMutableArray *)getAllLocations;
+-(void)deletLoctionWithAddress:(NSString *)address latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude;
 
 @end
 

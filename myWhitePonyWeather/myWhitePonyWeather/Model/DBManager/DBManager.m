@@ -46,12 +46,26 @@
 }
 -(void)insertLocationWithAddress:(NSString *)address latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude
 {
-    BOOL success=[self.db executeUpdate:@"insert into locationInfo(address,latitude,longitude) values(?,?,?)",address,@"latitude",@"longitude"];
+    NSString *lat=[NSString stringWithFormat:@"%f",latitude];
+    NSString *lon=[NSString stringWithFormat:@"%f",longitude];
+    BOOL success=[self.db executeUpdate:@"insert into locationInfo(address,latitude,longitude) values(?,?,?)",address,lat,lon];
     if (success) {
         NSLog(@">>>地点信息插入成功");
     }
     else
         NSLog(@">>>地点信息插入失败");
+}
+-(void)deletLoctionWithAddress:(NSString *)address latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude
+{
+    NSString *lat=[NSString stringWithFormat:@"%f",latitude];
+    NSString *lon=[NSString stringWithFormat:@"%f",longitude];
+    NSString *sql=[NSString stringWithFormat:@"delete from locationInfo where latitude=%@ and longitude=%@",lat,lon];
+    BOOL success=[self.db executeUpdate:sql];
+    if (success) {
+        NSLog(@">>>地点信息删除成功");
+    }
+    else
+        NSLog(@">>>地点信息删除失败");
 }
 -(NSMutableArray *)getAllLocations
 {

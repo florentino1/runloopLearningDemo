@@ -51,7 +51,7 @@
 }
 -(void)hideLeftViewController
 {
-    [self.revealViewController dismissViewControllerAnimated:self.revealViewController.leftViewController completion:nil];
+    [self.revealViewController showViewController:self.revealViewController.frontViewController];
 }
 #pragma mark - UISceneSession lifecycle
 

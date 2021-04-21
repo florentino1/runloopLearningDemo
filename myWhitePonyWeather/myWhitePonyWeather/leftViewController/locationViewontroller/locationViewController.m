@@ -31,12 +31,11 @@
     _locationTableView.dataSource=self;
     _searchBar.delegate=self;
     [self initNavButton];
-
-    _cityInfo=[[DBManager sharedDB] getAllLocations];
-
-
     //_cityDesc=@[@"当前定位：",@"全国热门城市："];
-
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    _cityInfo=[[DBManager sharedDB] getAllLocations];
 }
 - (void)initNavButton{
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 20 , 44, 44)];
@@ -78,12 +77,15 @@
 }
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    [self.searchBar resignFirstResponder];
-    [self dismissViewControllerAnimated:true completion:nil];
     NSString *string=self.searchBar.searchTextField.text;
     NSMutableDictionary *dic=[NSMutableDictionary dictionary];
     [dic setObject:string forKey:@"address"];
     [self beginSearch:dic];
+    [self.searchBar resignFirstResponder];
+    [self dismissViewControllerAnimated:true completion:^{
+        AppDelegate *del=[[UIApplication sharedApplication] delegate];
+        [del hideLeftViewController];
+    }];
 }
 -(void)beginSearch:(NSMutableDictionary *)dic
 {
@@ -138,7 +140,56 @@
     }
     return cell;
 }
-/*
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.section==0)
+        return NO;
+    else
+        return YES;
+}
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.section==0)
+        return NO;
+    else
+        return YES;
+}
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.section!=0)
+    {
+        if(editingStyle==UITableViewCellEditingStyleDelete)
+        {
+            location *loc=_cityInfo[indexPath.row];
+            [_cityInfo removeObject:loc];
+            [[DBManager sharedDB] deletLoctionWithAddress:loc.address latitude:loc.latitude longitude:loc.longitude];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
+    }
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    if (indexPath.section==0) {
+        userInfo *userDefaults=[userInfo sharedUserInfo];
+        [dic setObject:userDefaults.latitude forKey:@"latitude"];
+        [dic setObject:userDefaults.longitude forKey:@"longitude"];
+        [dic setObject:userDefaults.address forKey:@"address"];
+    }
+    else
+    {
+        location *loc=_cityInfo[indexPath.row];
+        [dic setObject:[NSNumber numberWithDouble:loc.latitude ] forKey:@"latitude"];
+        [dic setObject:[NSNumber numberWithDouble:loc.longitude] forKey:@"longitude"];
+        [dic setObject:loc.address forKey:@"address"];
+    }
+    NSNotification *nt=[NSNotification notificationWithName:@"tapAddress" object:nil userInfo:dic];
+    [[NSNotificationCenter defaultCenter]postNotification:nt];
+    [self dismissViewControllerAnimated:TRUE completion:^{
+        AppDelegate *del=[[UIApplication sharedApplication] delegate];
+        [del hideLeftViewController];
+    }];
+}
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -146,5 +197,4 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
 @end

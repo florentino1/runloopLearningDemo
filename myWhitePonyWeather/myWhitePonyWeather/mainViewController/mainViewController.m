@@ -30,7 +30,19 @@
     self.backLocation=[[location alloc]init];
     [self initUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getCoordinateByAddress:) name:@"search" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(predelivery:) name:@"tapAddress" object:nil];
 
+}
+-(void)predelivery:(NSNotification *)notification
+{
+    NSDictionary *dic=notification.userInfo;
+    CLLocationDegrees lat=[[dic objectForKey:@"latitude"] doubleValue];
+    CLLocationDegrees lon=[[dic objectForKey:@"longitude"] doubleValue];
+    NSString *address=[dic objectForKey:@"address"];
+    self.backLocation.address=address;
+    self.backLocation.latitude=lat;
+    self.backLocation.longitude=lon;
+    [self requestWeatherByLatitude:lat longitude:lon];
 }
 -(void)initUI
 {
@@ -201,6 +213,11 @@
     NSDictionary *userInfo=notification.userInfo;
     [_geoCoder geocodeAddressString:[userInfo objectForKey:@"address"] completionHandler:^(NSArray * placemarks,NSError *error){
         CLPlacemark *placemark=[placemarks firstObject];
+        if(placemark==nil)
+        {
+            NSLog(@">>>地理位置反编译失败");
+            return;
+        }
         CLLocation *loc=placemark.location;
         CLLocationDegrees lat=loc.coordinate.latitude;
         CLLocationDegrees lon=loc.coordinate.longitude;
@@ -211,9 +228,6 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [[DBManager sharedDB]insertLocationWithAddress:name latitude:lat longitude:lon];
         });
-        AppDelegate *del=[[UIApplication sharedApplication] delegate];
-        [del hideLeftViewController];
-        [self becomeFirstResponder];
         [self requestWeatherByLatitude:lat longitude:lon];
     }];
 }
@@ -257,7 +271,8 @@
     NSURLSessionDownloadTask *task=[manager downloadTaskWithRequest:request
                                                            progress:nil
                                                         destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-        NSString *filePathString=[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:response.suggestedFilename];
+        NSString *stringName=[NSString stringWithFormat:@"%f+%f",latitude,longitude];
+        NSString *filePathString=[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:stringName];
         NSLog(@"%@",filePathString);
         return [NSURL fileURLWithPath:filePathString];
     }
@@ -291,5 +306,4 @@
     // Pass the selected object to the new view controller.
 }
 */
-
 @end

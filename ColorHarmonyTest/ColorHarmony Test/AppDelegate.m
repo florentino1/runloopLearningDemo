@@ -6,6 +6,7 @@
 //
 
 #import "AppDelegate.h"
+#import "colorArray.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +17,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    colorArray *colorA=[colorArray sharedColorArray];
+    [colorA setColor];
     return YES;
 }
 

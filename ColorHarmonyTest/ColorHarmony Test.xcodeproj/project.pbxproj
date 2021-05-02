@@ -16,6 +16,8 @@
 		81B67369263D551400612F7D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B67368263D551400612F7D /* main.m */; };
 		81B67373263D58D100612F7D /* stackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B67372263D58D100612F7D /* stackViewController.m */; };
 		81B67377263D8FB300612F7D /* myUIImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B67376263D8FB200612F7D /* myUIImageView.m */; };
+		81B6737D263EA55300612F7D /* colorArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B6737C263EA55300612F7D /* colorArray.m */; };
+		81B67381263EB1AB00612F7D /* RGBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B67380263EB1AB00612F7D /* RGBColor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,10 @@
 		81B67372263D58D100612F7D /* stackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = stackViewController.m; sourceTree = "<group>"; };
 		81B67375263D8FB200612F7D /* myUIImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = myUIImageView.h; sourceTree = "<group>"; };
 		81B67376263D8FB200612F7D /* myUIImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = myUIImageView.m; sourceTree = "<group>"; };
+		81B6737B263EA55300612F7D /* colorArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = colorArray.h; sourceTree = "<group>"; };
+		81B6737C263EA55300612F7D /* colorArray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = colorArray.m; sourceTree = "<group>"; };
+		81B6737F263EB1AB00612F7D /* RGBColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RGBColor.h; sourceTree = "<group>"; };
+		81B67380263EB1AB00612F7D /* RGBColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RGBColor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +88,10 @@
 				81B67372263D58D100612F7D /* stackViewController.m */,
 				81B67375263D8FB200612F7D /* myUIImageView.h */,
 				81B67376263D8FB200612F7D /* myUIImageView.m */,
+				81B6737B263EA55300612F7D /* colorArray.h */,
+				81B6737C263EA55300612F7D /* colorArray.m */,
+				81B6737F263EB1AB00612F7D /* RGBColor.h */,
+				81B67380263EB1AB00612F7D /* RGBColor.m */,
 			);
 			path = "ColorHarmony Test";
 			sourceTree = "<group>";
@@ -158,9 +168,11 @@
 				81B6735E263D551100612F7D /* ViewController.m in Sources */,
 				81B67358263D551100612F7D /* AppDelegate.m in Sources */,
 				81B67373263D58D100612F7D /* stackViewController.m in Sources */,
+				81B6737D263EA55300612F7D /* colorArray.m in Sources */,
 				81B67369263D551400612F7D /* main.m in Sources */,
 				81B67377263D8FB300612F7D /* myUIImageView.m in Sources */,
 				81B6735B263D551100612F7D /* SceneDelegate.m in Sources */,
+				81B67381263EB1AB00612F7D /* RGBColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

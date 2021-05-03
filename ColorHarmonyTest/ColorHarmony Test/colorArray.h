@@ -10,7 +10,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface colorArray : NSObject
-@property (strong,nonatomic)NSMutableArray *RGBColorArray;
+@property (strong,nonatomic)NSMutableArray *firstColorArray;
+@property (strong,nonatomic)NSMutableArray *secondColorArray;
+@property (strong,nonatomic)NSMutableArray *thirdColorArray;
 +(instancetype)sharedColorArray;
 -(void)setColor;
 @end

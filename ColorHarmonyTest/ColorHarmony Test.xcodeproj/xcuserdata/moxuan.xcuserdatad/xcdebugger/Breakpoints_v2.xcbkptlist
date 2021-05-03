@@ -7,15 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BF26248D-4D29-4AA0-9765-DAC6E5AFF0D0"
-            shouldBeEnabled = "No"
+            uuid = "38F89BC1-B35A-48AB-AA35-B0A6234BE8DF"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ColorHarmony Test/stackViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "-panMove:"
             landmarkType = "7">
          </BreakpointContent>
@@ -23,15 +23,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6049489B-40D3-446F-B73C-4EFED0ECEAB4"
-            shouldBeEnabled = "No"
+            uuid = "78774484-15ED-468E-BD98-480B6A3C4547"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ColorHarmony Test/stackViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "-panMove:"
             landmarkType = "7">
          </BreakpointContent>
@@ -39,15 +39,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "308A404F-A278-476B-811F-A38340F36FE1"
-            shouldBeEnabled = "No"
+            uuid = "7863001E-7AA3-4DB1-9327-3529992CD301"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ColorHarmony Test/stackViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "-panMove:"
             landmarkType = "7">
          </BreakpointContent>
@@ -55,8 +55,8 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DAB1B9DB-D781-4E34-8C5F-77C52290B17C"
-            shouldBeEnabled = "No"
+            uuid = "2F8BD350-DD9E-409C-8615-B0F7FD724ABB"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ColorHarmony Test/stackViewController.m"
@@ -71,32 +71,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A39C9D39-8B90-402D-9589-FC73ED4E2E50"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ColorHarmony Test/stackViewController.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "-setImages"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C5AEB017-B835-4EF3-8351-1E41F93FDE6D"
+            uuid = "01298CFE-4F4C-409E-A8D8-361C82B0CFA5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ColorHarmony Test/stackViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "-setImages"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "-panMove:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

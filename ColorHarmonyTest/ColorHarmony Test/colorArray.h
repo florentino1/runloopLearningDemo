@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic)NSMutableArray *firstColorArray;
 @property (strong,nonatomic)NSMutableArray *secondColorArray;
 @property (strong,nonatomic)NSMutableArray *thirdColorArray;
+@property (strong,nonatomic)NSMutableArray *forthColorArray;
 +(instancetype)sharedColorArray;
 -(void)setColor;
 -(void)makeRandom:(NSMutableArray *)array;

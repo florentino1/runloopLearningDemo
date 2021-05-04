@@ -17,9 +17,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2T-5h-pLy">
-                                <rect key="frame" x="392" y="30" width="60" height="30"/>
+                                <rect key="frame" x="392.66666666666669" y="15" width="59" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="2Hd-3m-9zf"/>
                                     <constraint firstAttribute="height" constant="30" id="y5M-OJ-fcE"/>
                                 </constraints>
                                 <state key="normal" title="NewTest">
@@ -29,24 +28,26 @@
                                     <action selector="newTestButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L2y-6Z-nZC"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dx8-G9-qYR">
-                                <rect key="frame" x="95" y="85" width="655" height="200"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="dx8-G9-qYR">
+                                <rect key="frame" x="72" y="57" width="701" height="255"/>
                                 <subviews>
                                     <stackView opaque="NO" tag="1001" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="DBr-DF-36m" customClass="stackViewController">
-                                        <rect key="frame" x="0.0" y="0.0" width="655" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="701" height="60"/>
                                     </stackView>
                                     <stackView opaque="NO" tag="1002" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YIb-3x-EgY" customClass="stackViewController">
-                                        <rect key="frame" x="0.0" y="70" width="655" height="60"/>
+                                        <rect key="frame" x="0.0" y="65" width="701" height="60"/>
                                     </stackView>
                                     <stackView opaque="NO" tag="1003" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="63A-VP-7hd" customClass="stackViewController">
-                                        <rect key="frame" x="0.0" y="140" width="655" height="60"/>
+                                        <rect key="frame" x="0.0" y="130" width="701" height="60"/>
+                                    </stackView>
+                                    <stackView opaque="NO" tag="1004" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="azW-gj-IsV" customClass="stackViewController">
+                                        <rect key="frame" x="0.0" y="195" width="701" height="60"/>
                                     </stackView>
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fA1-Az-yjc">
-                                <rect key="frame" x="402" y="299" width="40" height="30"/>
+                                <rect key="frame" x="403" y="324" width="38" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="cbn-Zc-Jxa"/>
                                     <constraint firstAttribute="height" constant="30" id="xQg-FM-yeC"/>
                                 </constraints>
                                 <state key="normal" title="score"/>
@@ -58,25 +59,26 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="dx8-G9-qYR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="51" id="Bgz-T9-UeL"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fA1-Az-yjc" secondAttribute="bottom" constant="40" id="DRy-Zn-Aqe"/>
+                            <constraint firstItem="dx8-G9-qYR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="28" id="Bgz-T9-UeL"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fA1-Az-yjc" secondAttribute="bottom" constant="15" id="DRy-Zn-Aqe"/>
                             <constraint firstItem="fA1-Az-yjc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HAk-VI-vf7"/>
-                            <constraint firstItem="X2T-5h-pLy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="OTM-lc-0uf"/>
-                            <constraint firstItem="fA1-Az-yjc" firstAttribute="top" secondItem="dx8-G9-qYR" secondAttribute="bottom" constant="14" id="Vyt-ku-Nez"/>
+                            <constraint firstItem="X2T-5h-pLy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="OTM-lc-0uf"/>
+                            <constraint firstItem="fA1-Az-yjc" firstAttribute="top" secondItem="dx8-G9-qYR" secondAttribute="bottom" constant="12" id="Vyt-ku-Nez"/>
                             <constraint firstItem="X2T-5h-pLy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="f8H-lY-yEo"/>
-                            <constraint firstItem="dx8-G9-qYR" firstAttribute="top" secondItem="X2T-5h-pLy" secondAttribute="bottom" constant="25" id="m3L-yi-w6M"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dx8-G9-qYR" secondAttribute="trailing" constant="50" id="teB-3c-6B3"/>
+                            <constraint firstItem="dx8-G9-qYR" firstAttribute="top" secondItem="X2T-5h-pLy" secondAttribute="bottom" constant="12" id="m3L-yi-w6M"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dx8-G9-qYR" secondAttribute="trailing" constant="27" id="teB-3c-6B3"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="firstStackView" destination="DBr-DF-36m" id="BOf-QN-9Te"/>
+                        <outlet property="forthStackView" destination="azW-gj-IsV" id="vpY-LN-Rtb"/>
                         <outlet property="secondStackView" destination="YIb-3x-EgY" id="BF0-bO-dg4"/>
                         <outlet property="thirdStackView" destination="63A-VP-7hd" id="gbH-p4-zM5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="140.75829383886256" y="112.30769230769231"/>
+            <point key="canvasLocation" x="220" y="37"/>
         </scene>
     </scenes>
     <resources>

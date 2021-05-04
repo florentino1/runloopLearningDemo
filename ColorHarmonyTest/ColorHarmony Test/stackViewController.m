@@ -12,7 +12,7 @@
 
 #define WIDTH 28.0
 #define HIGHT 28.0
-#define IMAGECOUNT 20
+#define IMAGECOUNT 22
 
 @interface stackViewController()
 @property (assign,nonatomic)NSUInteger tagtmp;//用于储存正在被拖动的imageView的初始tag；
@@ -58,6 +58,10 @@
     {
         _color=colorA.thirdColorArray;
     }
+    else if(self.tag==1004)
+    {
+        _color=colorA.forthColorArray;
+    }
 }
 -(void)setImages
 {
@@ -91,7 +95,7 @@
 -(void)imageSetTag:(myUIImageView *)image withIndex:(int)i
 {
     image.tag=i;
-    if(image.tag==0 || image.tag==19)
+    if(image.tag==0 || image.tag==21)
     {
         image.userInteractionEnabled=NO;
     }

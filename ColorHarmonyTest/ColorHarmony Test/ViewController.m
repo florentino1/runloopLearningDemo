@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet stackViewController *firstStackView;
 @property (strong, nonatomic) IBOutlet stackViewController *secondStackView;
 @property (strong, nonatomic) IBOutlet stackViewController *thirdStackView;
+@property (strong, nonatomic) IBOutlet stackViewController *forthStackView;
 @property (strong,nonatomic)NSString *score;
 @end
 
@@ -29,16 +30,19 @@
     [color makeRandom:color.firstColorArray];
     [color makeRandom:color.secondColorArray];
     [color makeRandom:color.thirdColorArray];
+    [color makeRandom:color.forthColorArray];
     [self.firstStackView refreshSingleImageViewColor];
     [self.secondStackView refreshSingleImageViewColor];
     [self.thirdStackView refreshSingleImageViewColor];
+    [self.forthStackView refreshSingleImageViewColor];
     
 }
 - (IBAction)scoreButtonTapped:(UIButton *)sender {
     NSUInteger firstStackViewScore=[self caculateScore:self.firstStackView];
     NSUInteger secondStackViewScore=[self caculateScore:self.secondStackView];
     NSUInteger thirdStackViewScore=[self caculateScore:self.thirdStackView];
-    self.score=[NSString stringWithFormat:@"%lu",firstStackViewScore+secondStackViewScore+thirdStackViewScore];
+    NSUInteger forthStackViewScore=[self caculateScore:self.forthStackView];
+    self.score=[NSString stringWithFormat:@"%lu",firstStackViewScore+secondStackViewScore+thirdStackViewScore+forthStackViewScore];
     NSString *scoreString=[NSString stringWithFormat:@"your score is :%@ ",self.score];
     UIAlertController *alert=[UIAlertController alertControllerWithTitle:scoreString message:@"分数越低表示对颜色的识别度越高，0分为当前条件下最佳分数" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancel=[UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
@@ -72,7 +76,7 @@
 -(NSUInteger)caculateScore:(stackViewController *)stackView
 {
     NSMutableArray *colorIndexArray=[NSMutableArray array];
-    for(int i=0;i<20;i++)
+    for(int i=0;i<22;i++)
     {
         myUIImageView *image=[stackView viewWithTag:i];
         RGBColor *color=image.colorInfo;
@@ -86,7 +90,7 @@
 -(NSUInteger)caculateArray:(NSMutableArray *)array
 {
     NSUInteger score=0;
-    for(int i=0;i<20;i++)
+    for(int i=0;i<22;i++)
     {
         NSNumber *colorIndex=array[i];
         NSUInteger index=[colorIndex intValue];

@@ -30,6 +30,7 @@
         RGBColor *rgbcolor=[self transToRGB:firstColorString];
         [self.firstColorArray addObject:rgbcolor];
     }
+    [self makeRandom:_firstColorArray];
     //第二列的stackview 需要显示的色块颜色；
     NSArray *second=[NSArray arrayWithObjects:@"c9c77f",@"c9c784",@"cac78a",@"cac78f",@"cac794",@"cbc79a",@"cbc79f",@"cbc7a5",@"ccc7aa",@"ccc7af",@"ccc6b5",@"ccc6ba",@"cdc6bf",@"cdc6c5",@"cdc6ca",@"cec6d0",@"cec6d5",@"cec6da",@"cfc6e0",@"cfc6e5", nil];
     for(int i=0;i<20;i++)
@@ -38,6 +39,7 @@
         RGBColor *secondColor=[self transToRGB:secondColorString];
         [self.secondColorArray addObject:secondColor];
     }
+    [self makeRandom:_secondColorArray];
     //第三列的stackview 需要显示的色块颜色
     NSArray *third=[NSArray arrayWithObjects:@"c97f9b",@"c9839f",@"c987a3",@"c98ba7",@"c88eab",@"c892ae",@"c896b2",@"c89ab6",@"c89eba",@"c8a2be",@"c7a5c2",@"c7a9c6",@"c7adca",@"c7b1ce",@"c7b5d2",@"c7b9d5",@"c6bcd9",@"c6c0dd",@"c6c4e1",@"c6c8e5", nil];
     for(int i=0;i<20;i++)
@@ -46,6 +48,7 @@
         RGBColor *thirdColor=[self transToRGB:thirdColorString];
         [self.thirdColorArray addObject:thirdColor];
     }
+    [self makeRandom:_thirdColorArray];
 }
 -(RGBColor *)transToRGB:(NSString *)string
 {
@@ -79,5 +82,20 @@
     int Blue=16*[resArray[4] intValue]+[resArray[5] intValue];
     RGBColor *color=[[RGBColor alloc]initWithR:Red G:Green B:Blue];
     return color;
+}
+-(void)makeRandom:(NSMutableArray *)array
+{
+    RGBColor *firstColor=array.firstObject;
+    RGBColor *lastColor=array.lastObject;
+    [array removeObject:array.firstObject];
+    [array removeLastObject];
+    NSUInteger count=array.count;
+    for(int i=0;i<count;i++)
+    {
+        int n=(arc4random()%(count-i))+i;
+        [array exchangeObjectAtIndex:i withObjectAtIndex:n];
+    }
+    [array insertObject:firstColor atIndex:0];
+    [array addObject:lastColor];
 }
 @end

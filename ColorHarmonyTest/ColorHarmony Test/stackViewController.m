@@ -16,6 +16,8 @@
 
 @interface stackViewController()
 @property (assign,nonatomic)NSUInteger tagtmp;//用于储存正在被拖动的imageView的初始tag；
+@property (strong,nonatomic)NSMutableArray *color;//用于储存来自colorArray的随机颜色；
+@property (strong,nonatomic)NSMutableArray *imageViewArray;//用于存储已经产生的imageView 色块;
 @end
 @implementation stackViewController
 
@@ -29,56 +31,95 @@
 -(instancetype)initWithFrame:(CGRect)frame
 {
     self=[super initWithFrame:frame];
+    self.tagtmp=101;
+    _imageViewArray=[NSMutableArray array];
+    [self setColorArray];
     [self setImages];
     return self;
 }
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     self=[super initWithCoder:coder];
+    _imageViewArray=[NSMutableArray array];
+    self.tagtmp=101;
+    [self setColorArray];
     [self setImages];
     return self;
 }
--(void)setImages
+-(void)setColorArray
 {
-    self.tagtmp=101;
     colorArray *colorA=[colorArray sharedColorArray];
-    NSMutableArray *color;
     if(self.tag==1001)
     {
-        color=colorA.firstColorArray;
+        _color=colorA.firstColorArray;
     }
     else if(self.tag==1002)
     {
-        color=colorA.secondColorArray;
+        _color=colorA.secondColorArray;
     }
     else if(self.tag==1003)
     {
-        color=colorA.thirdColorArray;
+        _color=colorA.thirdColorArray;
     }
+}
+-(void)setImages
+{
     for(int i=0;i<IMAGECOUNT;i++)
     {
-        RGBColor *rgbColor=color[i];
-        CGFloat c[]={rgbColor.R/255.0,rgbColor.G/255.0,rgbColor.B/255.0,1.0};
-        CGColorRef color=CGColorCreate(CGColorSpaceCreateDeviceRGB(), c);
+        //设置imageview的基本参数
         myUIImageView *image=[[myUIImageView alloc]init];
-        image.backgroundColor=[UIColor colorWithCGColor:color];
         [image.heightAnchor constraintEqualToConstant:HIGHT].active=true;
         [image.widthAnchor constraintEqualToConstant:WIDTH].active=true;
-        image.tag=i;
-        UIPanGestureRecognizer *pan=[[UIPanGestureRecognizer alloc]init];
-        pan.maximumNumberOfTouches=1;
-        pan.minimumNumberOfTouches=1;
-        [pan addTarget:self action:@selector(panMove:)];
-        if(image.tag==0 || image.tag==19)
-        {
-            image.userInteractionEnabled=NO;
-        }
-        else
-        {
-            image.userInteractionEnabled=YES;
-            [image addGestureRecognizer:pan];
-        }
+
+        //设置每个色块的颜色
+        [self setSingleImageColorWithimageView:image Index:i ColorArray:_color];
+
+        //设置每个色块的tag;
+        [self imageSetTag:image withIndex:i];
+
+        //设置手势识别器
+        [self imageViewSetPanGesture:image];
+
         [self addArrangedSubview:image];
+        [self.imageViewArray addObject:image];
+    }
+}
+-(void)imageViewSetPanGesture:(myUIImageView *)image
+{
+    UIPanGestureRecognizer *pan=[[UIPanGestureRecognizer alloc]init];
+    pan.maximumNumberOfTouches=1;
+    pan.minimumNumberOfTouches=1;
+    [pan addTarget:self action:@selector(panMove:)];
+    [image addGestureRecognizer:pan];
+}
+-(void)imageSetTag:(myUIImageView *)image withIndex:(int)i
+{
+    image.tag=i;
+    if(image.tag==0 || image.tag==19)
+    {
+        image.userInteractionEnabled=NO;
+    }
+    else
+    {
+        image.userInteractionEnabled=YES;
+    }
+}
+-(void)setSingleImageColorWithimageView:(myUIImageView *)image Index:(int)i ColorArray:(NSMutableArray *)color
+{
+    RGBColor *rgbColor=color[i];
+    CGFloat c[]={rgbColor.R/255.0,rgbColor.G/255.0,rgbColor.B/255.0,1.0};
+    CGColorRef singleColor=CGColorCreate(CGColorSpaceCreateDeviceRGB(), c);
+    image.backgroundColor=[UIColor colorWithCGColor:singleColor];
+}
+-(void)refreshSingleImageViewColor
+{
+    [self setColorArray];
+    if(self.imageViewArray.count==0)
+        NSLog(@"error:self.imageViewArray.count is 0");
+    for(int i=0;i<IMAGECOUNT;i++)
+    {
+        myUIImageView *image=self.imageViewArray[i];
+        [self setSingleImageColorWithimageView:image Index:i ColorArray:self.color];
     }
 }
 -(void)panMove:(UIPanGestureRecognizer *)sender

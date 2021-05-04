@@ -68,6 +68,11 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dx8-G9-qYR" secondAttribute="trailing" constant="50" id="teB-3c-6B3"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="firstStackView" destination="DBr-DF-36m" id="BOf-QN-9Te"/>
+                        <outlet property="secondStackView" destination="YIb-3x-EgY" id="BF0-bO-dg4"/>
+                        <outlet property="thirdStackView" destination="63A-VP-7hd" id="gbH-p4-zM5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -6,8 +6,13 @@
 //
 
 #import "ViewController.h"
+#import "colorArray.h"
+#import "stackViewController.h"
 
 @interface ViewController ()
+@property (strong, nonatomic) IBOutlet stackViewController *firstStackView;
+@property (strong, nonatomic) IBOutlet stackViewController *secondStackView;
+@property (strong, nonatomic) IBOutlet stackViewController *thirdStackView;
 @property (strong,nonatomic)NSString *score;
 @end
 
@@ -18,6 +23,14 @@
     // Do any additional setup after loading the view.
 }
 - (IBAction)newTestButtonTapped:(UIButton *)sender {
+    colorArray *color=[colorArray sharedColorArray];
+    [color makeRandom:color.firstColorArray];
+    [color makeRandom:color.secondColorArray];
+    [color makeRandom:color.thirdColorArray];
+    [self.firstStackView refreshSingleImageViewColor];
+    [self.secondStackView refreshSingleImageViewColor];
+    [self.thirdStackView refreshSingleImageViewColor];
+    
 }
 - (IBAction)scoreButtonTapped:(UIButton *)sender {
     NSString *scoreString=[NSString stringWithFormat:@"your score is :%@ ",self.score];
@@ -34,8 +47,9 @@
 }
 -(void)shareScoreToSocial
 {
-    NSString *shareTitle=[NSString stringWithFormat:@"我在colorharmony的测试中获得了%@分，你也来试试吧！",self.score];
+    NSString *shareTitle=[NSString stringWithFormat:@"我在colorharmony的测试中获得了%@分，快来试试吧！",self.score];
     UIImage *shareImage=[UIImage imageNamed:@"pic"];
+#warning url hasn't been modified
     NSURL *shareUrl = [NSURL URLWithString:@"http://www.baidu.com"];
     NSArray *activityItems = @[shareTitle,shareImage,shareUrl];
 

@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic)NSMutableArray *thirdColorArray;
 +(instancetype)sharedColorArray;
 -(void)setColor;
+-(void)makeRandom:(NSMutableArray *)array;
 @end
 
 NS_ASSUME_NONNULL_END

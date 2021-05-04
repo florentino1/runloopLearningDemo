@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign,nonatomic)int R;
 @property (assign,nonatomic)int G;
 @property (assign,nonatomic)int B;
+@property (assign,nonatomic)int index;
 -(instancetype)initWithR:(int)Red G:(int)Green B:(int)Blue;
 @end
 

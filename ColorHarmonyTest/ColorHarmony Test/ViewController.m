@@ -8,6 +8,8 @@
 #import "ViewController.h"
 #import "colorArray.h"
 #import "stackViewController.h"
+#import "RGBColor.h"
+#import "myUIImageView.h"
 
 @interface ViewController ()
 @property (strong, nonatomic) IBOutlet stackViewController *firstStackView;
@@ -33,6 +35,10 @@
     
 }
 - (IBAction)scoreButtonTapped:(UIButton *)sender {
+    NSUInteger firstStackViewScore=[self caculateScore:self.firstStackView];
+    NSUInteger secondStackViewScore=[self caculateScore:self.secondStackView];
+    NSUInteger thirdStackViewScore=[self caculateScore:self.thirdStackView];
+    self.score=[NSString stringWithFormat:@"%lu",firstStackViewScore+secondStackViewScore+thirdStackViewScore];
     NSString *scoreString=[NSString stringWithFormat:@"your score is :%@ ",self.score];
     UIAlertController *alert=[UIAlertController alertControllerWithTitle:scoreString message:@"分数越低表示对颜色的识别度越高，0分为当前条件下最佳分数" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancel=[UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
@@ -63,6 +69,32 @@
     };
     [self presentViewController:activityVC animated:TRUE completion:nil];
 }
-
-
+-(NSUInteger)caculateScore:(stackViewController *)stackView
+{
+    NSMutableArray *colorIndexArray=[NSMutableArray array];
+    for(int i=0;i<20;i++)
+    {
+        myUIImageView *image=[stackView viewWithTag:i];
+        RGBColor *color=image.colorInfo;
+        NSUInteger index=color.index;
+        NSNumber *colorIndex=[NSNumber numberWithInteger:index];
+        [colorIndexArray addObject:colorIndex];
+    }
+    NSUInteger score=[self caculateArray:colorIndexArray];
+    return score;
+}
+-(NSUInteger)caculateArray:(NSMutableArray *)array
+{
+    NSUInteger score=0;
+    for(int i=0;i<20;i++)
+    {
+        NSNumber *colorIndex=array[i];
+        NSUInteger index=[colorIndex intValue];
+        if(index!=i)
+        {
+            score+=1;
+        }
+    }
+    return score;
+}
 @end

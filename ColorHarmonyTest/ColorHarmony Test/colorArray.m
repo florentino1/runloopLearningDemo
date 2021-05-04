@@ -27,8 +27,9 @@
     for(int i=0;i<20;i++)
     {
         NSString *firstColorString=first[i];
-        RGBColor *rgbcolor=[self transToRGB:firstColorString];
-        [self.firstColorArray addObject:rgbcolor];
+        RGBColor *firstcolor=[self transToRGB:firstColorString];
+        firstcolor.index=i;
+        [self.firstColorArray addObject:firstcolor];
     }
     [self makeRandom:_firstColorArray];
     //第二列的stackview 需要显示的色块颜色；
@@ -37,6 +38,7 @@
     {
         NSString *secondColorString=second[i];
         RGBColor *secondColor=[self transToRGB:secondColorString];
+        secondColor.index=i;
         [self.secondColorArray addObject:secondColor];
     }
     [self makeRandom:_secondColorArray];
@@ -46,10 +48,12 @@
     {
         NSString *thirdColorString=third[i];
         RGBColor *thirdColor=[self transToRGB:thirdColorString];
+        thirdColor.index=i;
         [self.thirdColorArray addObject:thirdColor];
     }
     [self makeRandom:_thirdColorArray];
 }
+//将HEX颜色转化为RGB颜色值并储存
 -(RGBColor *)transToRGB:(NSString *)string
 {
     char *s=[string cStringUsingEncoding:NSUTF8StringEncoding];
@@ -83,6 +87,7 @@
     RGBColor *color=[[RGBColor alloc]initWithR:Red G:Green B:Blue];
     return color;
 }
+//将颜色进行乱序排序，但是固定收尾两个色块的颜色不变；
 -(void)makeRandom:(NSMutableArray *)array
 {
     RGBColor *firstColor=array.firstObject;

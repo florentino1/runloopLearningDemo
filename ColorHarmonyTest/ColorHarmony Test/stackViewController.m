@@ -17,7 +17,6 @@
 @interface stackViewController()
 @property (assign,nonatomic)NSUInteger tagtmp;//用于储存正在被拖动的imageView的初始tag；
 @property (strong,nonatomic)NSMutableArray *color;//用于储存来自colorArray的随机颜色；
-@property (strong,nonatomic)NSMutableArray *imageViewArray;//用于存储已经产生的imageView 色块;
 @end
 @implementation stackViewController
 
@@ -32,7 +31,6 @@
 {
     self=[super initWithFrame:frame];
     self.tagtmp=101;
-    _imageViewArray=[NSMutableArray array];
     [self setColorArray];
     [self setImages];
     return self;
@@ -40,7 +38,6 @@
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     self=[super initWithCoder:coder];
-    _imageViewArray=[NSMutableArray array];
     self.tagtmp=101;
     [self setColorArray];
     [self setImages];
@@ -81,7 +78,6 @@
         [self imageViewSetPanGesture:image];
 
         [self addArrangedSubview:image];
-        [self.imageViewArray addObject:image];
     }
 }
 -(void)imageViewSetPanGesture:(myUIImageView *)image
@@ -110,15 +106,14 @@
     CGFloat c[]={rgbColor.R/255.0,rgbColor.G/255.0,rgbColor.B/255.0,1.0};
     CGColorRef singleColor=CGColorCreate(CGColorSpaceCreateDeviceRGB(), c);
     image.backgroundColor=[UIColor colorWithCGColor:singleColor];
+    image.colorInfo=rgbColor;
 }
 -(void)refreshSingleImageViewColor
 {
     [self setColorArray];
-    if(self.imageViewArray.count==0)
-        NSLog(@"error:self.imageViewArray.count is 0");
     for(int i=0;i<IMAGECOUNT;i++)
     {
-        myUIImageView *image=self.imageViewArray[i];
+        myUIImageView *image=[self viewWithTag:i];
         [self setSingleImageColorWithimageView:image Index:i ColorArray:self.color];
     }
 }

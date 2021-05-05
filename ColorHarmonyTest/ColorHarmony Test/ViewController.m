@@ -12,6 +12,8 @@
 #import "myUIImageView.h"
 
 @interface ViewController ()
+@property (strong, nonatomic) IBOutlet UIButton *scoreButton;
+@property (strong, nonatomic) IBOutlet UIButton *NewTestButton;
 @property (strong, nonatomic) IBOutlet stackViewController *firstStackView;
 @property (strong, nonatomic) IBOutlet stackViewController *secondStackView;
 @property (strong, nonatomic) IBOutlet stackViewController *thirdStackView;
@@ -76,9 +78,9 @@
 -(NSUInteger)caculateScore:(stackViewController *)stackView
 {
     NSMutableArray *colorIndexArray=[NSMutableArray array];
-    for(int i=0;i<22;i++)
+    for(int i=1;i<=22;i++)
     {
-        myUIImageView *image=[stackView viewWithTag:i];
+        myUIImageView *image=[stackView viewWithTag:(i+stackView.tag)];
         RGBColor *color=image.colorInfo;
         NSUInteger index=color.index;
         NSNumber *colorIndex=[NSNumber numberWithInteger:index];

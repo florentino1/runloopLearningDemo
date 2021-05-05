@@ -67,7 +67,7 @@
 //将HEX颜色转化为RGB颜色值并储存
 -(RGBColor *)transToRGB:(NSString *)string
 {
-    char *s=[string cStringUsingEncoding:NSUTF8StringEncoding];
+   const char *s=[string cStringUsingEncoding:NSUTF8StringEncoding];
     NSMutableArray *resArray=[NSMutableArray array];
     for(int i=0;i<6;i++)
     {

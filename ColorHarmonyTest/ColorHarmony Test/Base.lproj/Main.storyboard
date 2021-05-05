@@ -28,20 +28,20 @@
                                     <action selector="newTestButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L2y-6Z-nZC"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="dx8-G9-qYR">
-                                <rect key="frame" x="72" y="57" width="701" height="255"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="dx8-G9-qYR">
+                                <rect key="frame" x="107" y="57" width="633" height="255"/>
                                 <subviews>
-                                    <stackView opaque="NO" tag="1001" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="DBr-DF-36m" customClass="stackViewController">
-                                        <rect key="frame" x="0.0" y="0.0" width="701" height="60"/>
+                                    <stackView opaque="NO" tag="100" contentMode="scaleToFill" ambiguous="YES" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="DBr-DF-36m" customClass="stackViewController">
+                                        <rect key="frame" x="0.0" y="0.0" width="633" height="60"/>
                                     </stackView>
-                                    <stackView opaque="NO" tag="1002" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YIb-3x-EgY" customClass="stackViewController">
-                                        <rect key="frame" x="0.0" y="65" width="701" height="60"/>
+                                    <stackView opaque="NO" tag="200" contentMode="scaleToFill" ambiguous="YES" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YIb-3x-EgY" customClass="stackViewController">
+                                        <rect key="frame" x="0.0" y="65" width="633" height="60"/>
                                     </stackView>
-                                    <stackView opaque="NO" tag="1003" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="63A-VP-7hd" customClass="stackViewController">
-                                        <rect key="frame" x="0.0" y="130" width="701" height="60"/>
+                                    <stackView opaque="NO" tag="300" contentMode="scaleToFill" ambiguous="YES" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="63A-VP-7hd" customClass="stackViewController">
+                                        <rect key="frame" x="0.0" y="130" width="633" height="60"/>
                                     </stackView>
-                                    <stackView opaque="NO" tag="1004" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="azW-gj-IsV" customClass="stackViewController">
-                                        <rect key="frame" x="0.0" y="195" width="701" height="60"/>
+                                    <stackView opaque="NO" tag="400" contentMode="scaleToFill" ambiguous="YES" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="azW-gj-IsV" customClass="stackViewController">
+                                        <rect key="frame" x="0.0" y="195" width="633" height="60"/>
                                     </stackView>
                                 </subviews>
                             </stackView>
@@ -59,14 +59,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="dx8-G9-qYR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="28" id="Bgz-T9-UeL"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fA1-Az-yjc" secondAttribute="bottom" constant="15" id="DRy-Zn-Aqe"/>
+                            <constraint firstItem="dx8-G9-qYR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="63" id="Grb-1M-PGD"/>
                             <constraint firstItem="fA1-Az-yjc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HAk-VI-vf7"/>
                             <constraint firstItem="X2T-5h-pLy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="OTM-lc-0uf"/>
-                            <constraint firstItem="fA1-Az-yjc" firstAttribute="top" secondItem="dx8-G9-qYR" secondAttribute="bottom" constant="12" id="Vyt-ku-Nez"/>
+                            <constraint firstItem="fA1-Az-yjc" firstAttribute="top" secondItem="dx8-G9-qYR" secondAttribute="bottom" constant="12" id="d2N-dY-Iod"/>
                             <constraint firstItem="X2T-5h-pLy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="f8H-lY-yEo"/>
-                            <constraint firstItem="dx8-G9-qYR" firstAttribute="top" secondItem="X2T-5h-pLy" secondAttribute="bottom" constant="12" id="m3L-yi-w6M"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dx8-G9-qYR" secondAttribute="trailing" constant="27" id="teB-3c-6B3"/>
+                            <constraint firstItem="dx8-G9-qYR" firstAttribute="top" secondItem="X2T-5h-pLy" secondAttribute="bottom" constant="12" id="hxi-EN-iSS"/>
                         </constraints>
                     </view>
                     <connections>

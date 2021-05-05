@@ -6,6 +6,7 @@
 //
 
 #import "myUIImageView.h"
+#import "RGBColor.h"
 @interface myUIImageView()
 
 @end

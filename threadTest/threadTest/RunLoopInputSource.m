@@ -11,7 +11,7 @@
 @implementation RunLoopInputSource
 -(instancetype)init
 {
-    CFRunLoopSourceContext context={0,(__bridge void *)(self),NULL,NULL,NULL,NULL,NULL,&RunLoopSourceScheduleRoutine,&RunLoopSourceCancelRoutine,&RunLoopSourcePerformRoutine};
+    CFRunLoopSourceContext context={0,(__bridge void *)(self),NULL,NULL,NULL,NULL,NULL,&RunLoopSourceScheduleRoutine,&RunLoopSourcePerformRoutine,&RunLoopSourceCancelRoutine};
     runLoopSource=CFRunLoopSourceCreate(NULL, 0, &context);
     commands=[[NSMutableArray alloc]init];
     return  self;

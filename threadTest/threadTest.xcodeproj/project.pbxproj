@@ -11,7 +11,6 @@
 		814C9EAD2662359600E690BE /* RLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 814C9EAC2662359600E690BE /* RLAppDelegate.m */; };
 		817D30A2265A455B00A5EDD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 817D30A1265A455B00A5EDD2 /* Assets.xcassets */; };
 		817D30A8265A455B00A5EDD2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 817D30A7265A455B00A5EDD2 /* main.m */; };
-		817D30B1265A458F00A5EDD2 /* RunLoopObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 817D30B0265A458F00A5EDD2 /* RunLoopObserver.m */; };
 		817D30B5265A7AB800A5EDD2 /* RunLoopInputSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 817D30B4265A7AB800A5EDD2 /* RunLoopInputSource.m */; };
 		817D30BB265A9CBB00A5EDD2 /* RunLoopInputSourceThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 817D30BA265A9CBB00A5EDD2 /* RunLoopInputSourceThread.m */; };
 /* End PBXBuildFile section */
@@ -25,8 +24,6 @@
 		817D30A1265A455B00A5EDD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		817D30A6265A455B00A5EDD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		817D30A7265A455B00A5EDD2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		817D30AF265A458F00A5EDD2 /* RunLoopObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunLoopObserver.h; sourceTree = "<group>"; };
-		817D30B0265A458F00A5EDD2 /* RunLoopObserver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunLoopObserver.m; sourceTree = "<group>"; };
 		817D30B3265A7AB800A5EDD2 /* RunLoopInputSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunLoopInputSource.h; sourceTree = "<group>"; };
 		817D30B4265A7AB800A5EDD2 /* RunLoopInputSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunLoopInputSource.m; sourceTree = "<group>"; };
 		817D30B9265A9CBB00A5EDD2 /* RunLoopInputSourceThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunLoopInputSourceThread.h; sourceTree = "<group>"; };
@@ -70,8 +67,6 @@
 				817D30A1265A455B00A5EDD2 /* Assets.xcassets */,
 				817D30A6265A455B00A5EDD2 /* Info.plist */,
 				817D30A7265A455B00A5EDD2 /* main.m */,
-				817D30AF265A458F00A5EDD2 /* RunLoopObserver.h */,
-				817D30B0265A458F00A5EDD2 /* RunLoopObserver.m */,
 				817D30B3265A7AB800A5EDD2 /* RunLoopInputSource.h */,
 				817D30B4265A7AB800A5EDD2 /* RunLoopInputSource.m */,
 				817D30B9265A9CBB00A5EDD2 /* RunLoopInputSourceThread.h */,
@@ -149,7 +144,6 @@
 			files = (
 				814C9EA62661F9F800E690BE /* ViewController.m in Sources */,
 				817D30A8265A455B00A5EDD2 /* main.m in Sources */,
-				817D30B1265A458F00A5EDD2 /* RunLoopObserver.m in Sources */,
 				814C9EAD2662359600E690BE /* RLAppDelegate.m in Sources */,
 				817D30BB265A9CBB00A5EDD2 /* RunLoopInputSourceThread.m in Sources */,
 				817D30B5265A7AB800A5EDD2 /* RunLoopInputSource.m in Sources */,

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RunLoopInputSource : NSObject<NSCoding>
+@interface RunLoopInputSource : NSObject
 {
     @public
     CFRunLoopSourceRef runLoopSource;

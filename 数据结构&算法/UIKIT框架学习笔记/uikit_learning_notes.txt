@@ -124,9 +124,11 @@ UITableview外观配置：
 	tableheaderView：整个tableview的头部视图，与为每个节分配的headerView是两个东西；
 	tableFooterView：整个tableView的脚部视图，与为每个节分配的footerview是两个东西；
 DataSource对象：UITableViewController的dataSource对象是weak型的，必须符合数据源协议；
-prefetchDataSource对象作为DataSource对象到tableViewcell的缓冲，在下一个绘制周期时使用prefetchDataSource的对象内容进行显示；
+prefetchDataSource对象作为DataSource对象到tableViewcell的缓冲，在下一个绘制周期时使用prefetchDataSource的对象内容进行显示；异步的缓存操作，可以预先从database中缓存需要的数据；
 
-cell--可重用cell：
+cell--可重用cell：visibleCells 和UnvisibleCells数组储存当前正在进行显示的cell和当前未在屏幕上进行显示的cell；
+
+	一个tableview可以同时使用多个tableViewcell，由DataSourcedelegate对象在屏幕显示之前进行修饰；
 	使用registerNib: forCellReuseIdentifier: 告知系统使用identifier的nib文件创建一个cell并以此作为模板；如果需要使用另一类型的cell，可以将此identifier对应的nib重置为nil，然后调用此方法注册新的nib；
 	使用registerClass:forCellReuseIdentifier:此方法桶以上方法相类似，告知创建cell所使用的nib或者是class，但是如果identifier相同，则会覆盖之前的设置；
 		使用注册class的方法注册cell时，需要在-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier方法中完成自定义的配置，包括cell元素的初始化；
@@ -138,9 +140,43 @@ cell--可重用cell：
 		，然后为每一个cell调用该协议方法，包括离屏没有进行显示的cell，造成巨大的性能损失；
 	estimatedRowheight属性：一个非负的对cell高度的估值，默认是使用的UITableViewAutomaticDimension属性的值，使用预估的高度可以将大量cell的载入性能提高，如果不想使用此兴致，将该属性值设为0；
 	insetsContentViewsToSafeArea：布尔属性，指明tableView是否应该将内容显示在安全区之内；
+	
+	iOS 14新加入的特性：backgroundconfiguration ：
+	backgroundcolor;
+	backgroundview---UIView的子类，作为tableviewcell的背景视图；
+	selectedbackgroundview---可以设置在cell处于被选中的状态时，将tableviewcell的背景视图进行设置；
+	mutipleselectionbackgroundview;
 
+	contentconfiguration:
+	iOS14的新特性，继承自UIListcontentconfiguration 对象，通过-defaultcontentconfiguration方法返回默认的值，通过此属性的值对cell的text，image，secondarytext进行配置，包括与之相应的各种属性值；
+	UIListcontentconfiguration *content=cell.defaultcontentconfiguration;
+	conten.image=;   content.text=;   content.secondaryproperties=;
+	
+	contentview  :contentview是cell中要进行显示的内容视图的父视图，在cell中加入的视图空间都要作为contentview的子视图进行显示才能够保证内容视图的尺寸正确；
+	
+	configurationstate:用来概括当前cell  configuration state的对象，包括focused selected swiping expanded  celldragstate 等，包括相应的update 或者 setneedsUpdate；
 
+	accessoryType 和accessoryview ：accessorytype默认为UITableViewAccessoryTypeNone,此时如果对cell的accessoryview属性设定自定义的view视图，该视图将会被忽略；有其他4种类型，分别为详情视图，勾选视图，跳转视图，详情和跳转视图;
+	accessiryview为cell右端的内容视图的类型，可以使用所有frame框架提供的UIView视图对象，如switch开关对象，UIlabel对象等；
+	此外还可以单独设定cell在处于编辑状态时的type和view：editingAccessoryType,editingAccessoryview;
+	当cell的accessoryView被用户进行点击时，会调用代理方法的 tableView: accesoryButtonTappedForRowAtIndexpath:此时可以在此方法中进行accessorybutton的相关设定；
+	
 
+	cell_selection、highlight：
+	cell在被选中时可以表现出不同的selectionstyle：默认为UITableviewcellselectionstyledefault；要注意与cell的backgroundview的关联，在cell被选中时会参考cell的backgroundview的color；
+	selected：布尔值，指明该cell是否当前被选中；使用-cellForRowAtIndexpath:方法和 -indexpathForSelectedRow: 方法可以获得选中的cell和所选中cell的indexpath属性；
+	使用deselectrow方法取消cell的选择，使用allowsSelection和allowsMutipleSelection属性的值设置是否允许进行选择和是否可以设置多选；该属性是tableview的全局属性，不能依据section的值进行单独设定；
+	
+	editing：默认的是cell没有editing的选项，为UItableviewcellEditingstyleNone;此外还有两种：UITableViewCellEditingStyleDelete   UITableViewCellEditingStyleInsert ;
+	三种形式的editingStyle通过editingstyle属性进行设置，代理对象为特定的cell在代理方法-tableview:editingstyleorrowatindexpath:方法中返回特定的值；
+
+	identationlevel :缩进值，identationwidth是指相比较于cell seperator的缩进的值，默认是10个点；
+	
+	通知：当cell的state发生变化时将会调用-willtranstiontostate:  和-didtransitiontostate：方法以便发出通知；
+	
+	seperatorInsets: 这个属性将其他空间的边缘与cell的contentview中控件的边缘对齐，只关注left和right的值，不关注top和bottom；使用此属性可以完成cell下方视图空间的缩进；
+	separatorColor: 这个属性设置了每个cell之间、footer之间的分割线的颜色；但是在同一个tableview中不能根据不同的section设置不同的separatorColor；
+	
 
 section header footer---可重用的节头部和节脚部
 	- registerNib:forHeaderFooterViewReuseIdentifier:
@@ -148,13 +184,140 @@ section header footer---可重用的节头部和节脚部
 	- dequeueReusableHeaderFooterViewWithIdentifier:
 	
 	sectionHeaderHeight、sectionFooterHeight、estimatedHeaderHeight、estimatedFooterHeight；
+	
+	headerviewforsection:   footerviewforsection:    cellForRowAtIndexpath: indexpathForCell:等方法可以获取一个cell，indexpath、header、footerview等相关信息；
 
+row \section的添加、删除和更新：
+	insertRowsAtIndexPaths:withRowAnimation: / deleteRowsAtIndexPath:withRowAnimation:  这些方法与array的添加和删除操作不同的是，删除或者添加操作的顺序并不影响结果，tableview会相应的推迟inset操作直到完成了所有delete操作；
+	insertSections:withRowAnimation:   / deleteSectionS:withRowAnimation:
+	moveSeciton:toSection: / moveRowAtIndexPath:toIndexpath:
+	以上的方法都是在beginUpdates： 或者endUpdates：方法的块中被调用的，而且系统执行delete方法的时机要早于insert方法；	
+	
+	相比较于beginUpdates： 或者endUpdates：方法，apple推荐使用的方法是：performbatchupdate：completion：方法；该方法的两个参数均为块，需要将对row、section的添加删除和更新操作都放在块中执行；且delete的操作优先于insert操作执行；
+
+	数据的更新主要是：  reloadROwsAtIndexPaths:withRowAniation:
+		   	reloadSections:withRowAnimation:
+			reloadData;----这个方法不要轻易调用，影响tableview的动画效果、以及未保存到DataSource的changes；
+			当hasuncommitedupdates属性返回yes的时候，表示当前tableview有未更新到DataSource的变化，这个时候不可以调用reloadData方法；
+
+				       
 两个重要的协议---数据源协议和代理协议
+	数据源协议：DataSourceDelegate：
+	@required：tableview:numberofrowsinsection:  在section只有1时，返回唯一的一个section中的rows数；
+		tableview:cellforrowAtIndexPath: 方法是主要的方法；
+		
+	@option
+		在tableview: titleforHeader/FooterInSection:中系统使用的是默认的front和view，如果需要自定义修改，需要使用delegate方法的tableview:viewforheader/footerinSection: 方法进行自定义，且delegate方法优先级高于DataSource方法
+		tableView:canEditeRowAtIndexPath: 方法返回一个bool值指明特定的row是否可以进入edit状态：UITableViewCellEditingStyleInsert/Delete，默认返回的是YES，即所有的cell都可以被修改；
+		※ tableView:commitEditingStyle:forRowAtIndexPath: 方法在cell进入编辑状态时，用户点击添加或是删除按钮，此方法会被调用以通知datasource进行更新，同时可能还会调用UITableView的cell插入或是删除方法进行UI的更新；
+			此方法需要实现delegate代理的 tableview: editingStyleForRowAtIndexPath： 方法以便为不同的操作返回不同的editing模式；
+		
+		移动move：
+		tableview:canMoveRowAtIndexPath:
+			方法同上类似，指明某个特定的cell是否可以进行移动；此方法可以为某个特定的节或者是cell指定move属性；
+		tableview:moveRowAtIndexPath:toIndexPath:  
+			在实现cell移动重排序之前需要确保cell进入了editing模式，可以显式的调用 tableview.editing=YES;只有这样，tableview才会在cell的末尾显示移动块；
+			此外，需要实现重排序的效果需要实现代理协议的 tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath: 方法，直接返回ProposedIndexPath即可；
+		
+		节索引：
+			sectionIndexTitlesForTableView:
+			tableview:sectionForsectionIndextitle:Atindex:  这个方法可以通过传入索引数组中节的title 和该节在索引数组中的序号  ，返回该节在 tableview中的 序号，因为索引数组可能是随机排序的；
+	
+	数据源协议的延伸协议：DataSourcePrefetching协议
+		tableView: prefetchRowAtIndexPath:
+		tableview:cancelPrefetchingRowForIndexPath: 方法，主要使用异步操作完成，具体可用NSoperation进行复用
+		在使用之前需要创建一个prefetch对象，然后赋值给到tableview 的 prefetchDataSource属性；
+	
 
 
 
 
 
+	代理协议：UITableViewDelegate
+		tableView: willDisplayCell: forRowAtIndexpath: 此方法在cell将要进行屏幕绘制前调用，可以减轻DataSource方法的负担，承担更多的自定义选项、动画效果等；
+	
+		tableView: willSelectRowAtIndexPath:  	在此方法中返回nil可以阻止系统调用didSelectRowAtIndexpath的方法，达到取消选中的目的；
+		tableView: didselectRowAtIndexPath:
+		tableView: willDeselectRowAtIndexPath:
+		tableView: didDeselectRowAtIndexPath:    以上四个方法分别在row被选中中、取消选中时进行调用，可以在调用时进行一些自定义配置，例如accessoryView，或者是accessoryType的配置等；
+
+		//返回页眉和页脚---如果实现了以下两个方法但是却没有实现footer 和 header的高度计算的代理方法 ，那么tableview将会使用默认的高度值或者是tableview的footerheight或者headerheight属性值；
+		- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section; 
+		- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section; 
+
+		//页眉和页脚将要展示
+		- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section;
+		- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section;
+
+		※行、头部、脚部高度计算：
+			常量：UITableViewAutomaticDimension 一个CGFloat型的常量，如果在header和footer高度计算的方法中返回此常量那么tableview将会根据DataSource代理方法中返回的header、footer的title的高度fit去返回一个高度值；
+
+			//返回页眉和页脚的高度
+			- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
+			- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section;
+
+			//预估页眉和页脚高度
+			- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section;
+			- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section;
+			
+			//计算行的高度
+			- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+			行高度的计算的优先级要高于tableview的rowheight属性，所以如果行高一致的话直接设置tableview.rowheight属性即可；
+			此方法在cell出现在屏幕上时被调用，无论这个cell此前是否已经被调用过；
+			
+			//行高度的预估
+			- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+			此方法如果未进行实现的话，默认也会返回UITablevViewAutomaitcDimension常量，可以使用预估行高的方式来将行高的计算从加载时延迟到滚动时；
+
+
+		新特性：context menu
+
+
+		自定义左滑右滑的控件和action：
+			系统自定义实现了向右滑是删除操作，会显示红色的删除按钮。但是需要在DataSource代理中实现commitEditing方法；
+			但是系统默认的是左滑是无意义的，需要实现delegate代理的  - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
+			方法，自定义一个UIContextualAction 对象，实现该action的handler、image等内容，然后将该action对象封装为UISwipeActionConfiguration对象进行返回，可以在左右分别自定义多个action对象；
+				-(UISwipeActionsConfiguration *)tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
+				{
+ 					  UIContextualAction *addAction=[UIContextualAction
+                                            	contextualActionWithStyle:UIContextualActionStyleNormal
+                                           	 title:@"add"
+                                           	 handler:^(UIContextualAction * _Nonnull action,
+                                                    	  __kindof UIView * _Nonnull sourceView,
+                                                     	 void (^ _Nonnull completionHandler)(BOOL))
+        						{
+            						NSMutableDictionary *dicToAdd=[[NSMutableDictionary alloc]init];
+            						[dicToAdd setObject:@"lock" forKey:@"image"];
+           						[dicToAdd setObject:@"newItem" forKey:@"title"];
+            						[dicToAdd setObject:@"item" forKey:@"subtitle"];
+            						NSMutableArray *arr=self->_propertyArray[0];
+            						[arr addObject:dicToAdd];
+            						[tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+           						NSIndexSet *set=[[NSIndexSet alloc]initWithIndex:0];
+            						[tableView reloadSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+            						completionHandler(true);
+       						 }];
+    						addAction.image=[UIImage imageNamed:@"lock"];
+   						return [UISwipeActionsConfiguration configurationWithActions:@[addAction]];
+				}
+
+			在右侧添加自定义action也是同样的逻辑，方法名改为trailing；
+
+
+		是否高亮显示：  shouldHighlight    didHighlight    unHighlight  ；
+		
+		进入、退出编辑模式：  willBeginEditing      didEndEditing    
+			tableView: editingStyleForRowAtIndexPath:  代理方法可以自定义某个行的editing style ，默认返回的是UITableViewCellEditingStyleDelete；在外部添加一个按钮，通过按钮来设置一个flag，以便在此方法中判断返回值；
+			此外类如移动等操作的实现，需要显式的设置tableview.editing 属性为真；
+		
+		移动+重排：tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath: 
+			在用户完成拖动后，如果位置合适可以直接返回proposedIndexPath；
+
+		
+		
+
+tableviewcontroller :
+	一个比较特殊的属性：clearsSelectionOnViewWillAppear:  指明tableviewcontroller的tableview在调用viewwillAppear时是否清除当前的已选择row；
 
 
 

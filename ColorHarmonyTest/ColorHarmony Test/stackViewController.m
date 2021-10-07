@@ -48,19 +48,19 @@
     colorArray *colorA=[colorArray sharedColorArray];
     if(self.tag==100)
     {
-        _color=colorA.firstColorArray;
+        _color=colorA.myColorArray[0];
     }
     else if(self.tag==200)
     {
-        _color=colorA.secondColorArray;
+        _color=colorA.myColorArray[1];
     }
     else if(self.tag==300)
     {
-        _color=colorA.thirdColorArray;
+        _color=colorA.myColorArray[2];
     }
     else if(self.tag==400)
     {
-        _color=colorA.forthColorArray;
+        _color=colorA.myColorArray[3];
     }
 }
 -(void)setImages

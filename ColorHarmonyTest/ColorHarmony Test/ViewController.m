@@ -29,10 +29,9 @@
 }
 - (IBAction)newTestButtonTapped:(UIButton *)sender {
     colorArray *color=[colorArray sharedColorArray];
-    [color makeRandom:color.firstColorArray];
-    [color makeRandom:color.secondColorArray];
-    [color makeRandom:color.thirdColorArray];
-    [color makeRandom:color.forthColorArray];
+#warning here 4 need to replace by COLORCOLUMNS
+    for(int i=0;i<4;i++)
+        [color makeRandom:color.myColorArray[i]];
     [self.firstStackView refreshSingleImageViewColor];
     [self.secondStackView refreshSingleImageViewColor];
     [self.thirdStackView refreshSingleImageViewColor];

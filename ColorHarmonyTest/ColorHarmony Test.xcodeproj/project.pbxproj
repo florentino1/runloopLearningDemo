@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81AE2419270F0E3700E08669 /* HexColor.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81AE2418270F0E3700E08669 /* HexColor.plist */; };
 		81B67358263D551100612F7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B67357263D551100612F7D /* AppDelegate.m */; };
 		81B6735B263D551100612F7D /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B6735A263D551100612F7D /* SceneDelegate.m */; };
 		81B6735E263D551100612F7D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B6735D263D551100612F7D /* ViewController.m */; };
@@ -21,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		81AE2418270F0E3700E08669 /* HexColor.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = HexColor.plist; sourceTree = "<group>"; };
+		81AE241A270F145100E08669 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		81B67353263D551100612F7D /* ColorHarmony Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ColorHarmony Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81B67356263D551100612F7D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		81B67357263D551100612F7D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -92,6 +95,8 @@
 				81B6737C263EA55300612F7D /* colorArray.m */,
 				81B6737F263EB1AB00612F7D /* RGBColor.h */,
 				81B67380263EB1AB00612F7D /* RGBColor.m */,
+				81AE2418270F0E3700E08669 /* HexColor.plist */,
+				81AE241A270F145100E08669 /* PrefixHeader.pch */,
 			);
 			path = "ColorHarmony Test";
 			sourceTree = "<group>";
@@ -152,6 +157,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81AE2419270F0E3700E08669 /* HexColor.plist in Resources */,
 				81B67366263D551400612F7D /* LaunchScreen.storyboard in Resources */,
 				81B67363263D551400612F7D /* Assets.xcassets in Resources */,
 				81B67361263D551100612F7D /* Main.storyboard in Resources */,

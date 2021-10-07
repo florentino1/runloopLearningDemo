@@ -12,10 +12,10 @@
 {
     if(self=[super init])
     {
-    _R=Red;
-    _G=Green;
-    _B=Blue;
-    return self;
+        _R=Red;
+        _G=Green;
+        _B=Blue;
+        return self;
     }
     return nil;
 }

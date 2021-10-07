@@ -264,6 +264,7 @@ row \section的添加、删除和更新：
 			- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 			行高度的计算的优先级要高于tableview的rowheight属性，所以如果行高一致的话直接设置tableview.rowheight属性即可；
 			此方法在cell出现在屏幕上时被调用，无论这个cell此前是否已经被调用过；
+			对于动态计算高度的cell，不能在此方法中通过cellAtIndexPath方法获得该cell；
 			
 			//行高度的预估
 			- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -310,8 +311,10 @@ row \section的添加、删除和更新：
 			tableView: editingStyleForRowAtIndexPath:  代理方法可以自定义某个行的editing style ，默认返回的是UITableViewCellEditingStyleDelete；在外部添加一个按钮，通过按钮来设置一个flag，以便在此方法中判断返回值；
 			此外类如移动等操作的实现，需要显式的设置tableview.editing 属性为真；
 		
-		移动+重排：tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath: 
+		移动+重排：tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath:  此方法的调用时间要早于DataSource的moveRowAtIndexPath：方法；
 			在用户完成拖动后，如果位置合适可以直接返回proposedIndexPath；
+			如果需要限定某个特定的section才能进行move操作，需要在此方法中进行判定section的值，如果超出了需求的section，则返回sourceIndexpath；
+			此方法不可以返回nil值，否则会引起崩溃；
 
 		
 		
@@ -322,12 +325,34 @@ tableviewcontroller :
 
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+********************************************************************************************************************************************************************************************************
+________________________________________________________________________________________________________________________________________________________________________________________________________
 
 
 
+UIStackView
+
+UIStackView对AutoLayout 做了一个封装，使用stackView来对子视图进行管理，子视图的大小尺寸决定了stackview的视图大小尺寸；但是stackview本身还是需要进行手动的约束；
+主要的属性大致有四个方向：  
+		       子视图的轴——axis   决定子视图沿着哪一个轴进行分布，即垂直或是水平进行排布；
+		        子视图的排布形式——distribution 决定子视图在特定轴上如何进行排布；
+		       子视图的对齐方式——alignment 决定了子视图在某个特定方向上是如何进行对齐的；
+		       子视图的间隔——spacing  子视图之间的间隔是多少；
+		除此之外还有：baseLineRelativeArrangement、  layoutMarginsRelativeArrangement；
 
 
+stackview 会将其arrangedVIews中的第一个视图的leadingEdge、最后一个视图的trailingEdge与（垂直方向上）top、buttom 对齐；与（水平方向上的）leading、trailing 对齐；如果设置stackview的margin属性为yes，那么将和margin对齐；
 
+
+arrangedSubviews 和 subviews 的区别和联系：
+	stackview的  arrangedSubviews属性保证自己是 subviews的真子集，如果在一个子视图被加入到arrangedSubview时没有被加入到subviews中，则系统会自动添加；
+	Stackview的 subviews中的空间被移除时，系统也会保证将该视图空间从arrangedSubviews中移除；但是如果从arrangedSubviews中移除一个视图空间，系统并不会将其从stackview的subviews中移除，它可能还会进行显示；
+	但是subviews和arrangedSubviews中视图的排列顺序在屏幕上的显示不同：arrangedSubviews会按照从上到下或者从左到右对视图进行排序显示，而subviews是在z轴上的排序，如果视图重叠，那么最先加入的视图将会被覆盖；
+
+
+-customSpacingAfterSubview:
+-setCustomSpacing: afterView:    这两个方法可以对特定的子视图之间的spacing进行自定义设置；
 
 
 

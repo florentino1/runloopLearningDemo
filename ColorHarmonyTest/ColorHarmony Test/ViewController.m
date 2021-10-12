@@ -30,7 +30,7 @@
     [_NewTestButton addTarget:self action:@selector(newTestButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_NewTestButton];
     
-    [_NewTestButton.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:10].active=YES;
+    [_NewTestButton.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:50].active=YES;
     [_NewTestButton.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active=YES;
     [_NewTestButton.heightAnchor constraintEqualToConstant:44.0].active=YES;
     [_NewTestButton.widthAnchor constraintEqualToConstant:66.0].active=YES;
@@ -55,6 +55,18 @@
         [_innerStackViewArr addObject:innerStackView];
         [_stackView addArrangedSubview:innerStackView];
     }
+    
+    //scoreButton
+    _scoreButton=[UIButton buttonWithType:UIButtonTypeSystem];
+    [_scoreButton setTitle:@"score" forState:UIControlStateNormal];
+    [_scoreButton addTarget:self action:@selector(scoreButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    _scoreButton.translatesAutoresizingMaskIntoConstraints=NO;
+    [self.view addSubview:_scoreButton];
+    
+    [_scoreButton.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active=true;
+    [_scoreButton.topAnchor constraintEqualToAnchor:_stackView.bottomAnchor constant:40].active=true;
+    [_scoreButton.widthAnchor constraintEqualToConstant:66.0].active=YES;
+    [_scoreButton.heightAnchor constraintEqualToConstant:44.0].active=YES;
 }
 - (void)newTestButtonTapped:(UIButton *)sender {
     colorArray *color=[colorArray sharedColorArray];

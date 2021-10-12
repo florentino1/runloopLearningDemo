@@ -101,7 +101,7 @@
     {
             //设置imageview的基本参数
             myUIImageView *image=[[myUIImageView alloc]init];
-            image.tag=i;
+            image.tag=i+self.tag;
             image.userInteractionEnabled=YES;
             [image.heightAnchor constraintEqualToConstant:IMAGEHIGHT].active=true;
             [image.widthAnchor constraintEqualToConstant:IMAGEWIDTH].active=true;
@@ -142,121 +142,59 @@
 -(void)panMove:(UIPanGestureRecognizer *)sender
 {
     myUIImageView *imageView=(myUIImageView *)sender.view;
-    CGPoint trans=[sender translationInView:sender.view.superview];     //移动距离的累加值
-  //  CGFloat fixedSpacing=IMAGEWIDTH+self.stackView.spacing;     //色块的宽度加上两个色块之间的间隔
-    CGFloat shouldExchangeSpacing=IMAGEWIDTH+self.stackView.spacing;   //色块宽度加上两个色块之间的间隔
+    CGPoint trans=[sender translationInView:sender.view.superview];     //以自身的左上角为原点，每次移动时计算与原点的差值
     
     if(sender.state==UIGestureRecognizerStateBegan)
     {
-        imageView.positionXOriginX=sender.view.center.x;
-        imageView.positionXCurrent=imageView.positionXOriginX;
-        NSLog(@"当前正在移动的imageview 序号为：%lu,坐标为：%f,%f\n",(unsigned long)imageView.tag,imageView.positionX,imageView.positionY);
+        imageView.positionOriginX=sender.view.center.x;
+        imageView.positionOriginY=sender.view.center.y;
+        imageView.positionCurrentX=imageView.positionOriginX;
+        imageView.positionCurrentY=imageView.positionOriginY;
+        NSLog(@"当前正在移动的imageview 序号为：%lu,初始坐标为：%f,%f\n",(unsigned long)imageView.tag,imageView.positionOriginX,imageView.positionOriginY);
     }
     else if(sender.state==UIGestureRecognizerStateChanged)
     {
         NSUInteger imageViewTag=imageView.tag;
         myUIImageView *nextImageView;
+        imageView.positionCurrentX=imageView.positionOriginX+trans.x;
+        imageView.positionCurrentY=imageView.positionOriginY+trans.y;
+        imageView.center=CGPointMake(imageView.positionCurrentX,imageView.positionCurrentY);
         if(trans.x>0)
-            nextImageView=[self viewWithTag:imageViewTag+1];
+        {
+            if(imageViewTag<self.tag+COLORNUMBERS-2)
+                nextImageView=[self viewWithTag:imageViewTag+1];
+            else
+                nextImageView=imageView;
+        }
         else if(trans.x<0)
         {
-            nextImageView=[self viewWithTag:imageViewTag-1];
+            if(imageViewTag!=self.tag+1)
+                nextImageView=[self viewWithTag:imageViewTag-1];
+            else
+                nextImageView=imageView;
             trans.x*=-1;
         }
-        if(trans.x==shouldExchangeSpacing)
+        if(trans.x>=SHOULDEXCHANGESPACING && trans.x<2*SHOULDEXCHANGESPACING)
         {
-            [self.stackView exchangeSubviewAtIndex:imageViewTag withSubviewAtIndex:imageViewTag+1];
+            [self exchangeView:imageView withView:nextImageView];
             imageView.tag=nextImageView.tag;
             nextImageView.tag=imageViewTag;
-        }
-        [sender setTranslation:CGPointMake(0, 0) inView:sender.view.superview];
-    }
-/*
-        //判断向左进行移动
-        else if(trans.x<0 && distance<=0)
-        {
-            NSLog(@"色块向左移动:%f,总计移动：%f",trans.x,distance);
-            distance=distance*(-1);
-            int res=(int)distance% (int)fixedSpacing;
-            int times=(int)distance/fixedSpacing;
-            if(res>=(IMAGEWIDTH/2+self.spacing))
-                times+=1;
-            for(NSUInteger i=index-1;i>=index-times;i--)
-            {
-                if(i!=self.tag+1)
-                {
-                    myUIImageView *imageForward=[self viewWithTag:i];
-                    imageView.tag=self.tagtmp;
-                    imageForward.tag+=1;
-                    imageForward.positionX=imageView.positionXTEM;
-                    imageForward.positionY=imageView.positionY;
-                    imageForward.positionXForver=imageView.positionX;
-                    imageForward.positionXTEM=imageForward.positionX;
-                    imageForward.center=CGPointMake(imageForward.positionX, imageForward.positionY);
-                    imageView.tag=i;
-                    imageView.positionX+=trans.x;
-                    sender.view.center=CGPointMake(imageView.positionX, imageView.positionY);
-                    imageView.positionXTEM-=fixedSpacing;
-                    trans.x=0;
-                    trans.y=0;
-                    [sender setTranslation:CGPointMake(0, 0) inView:sender.view.superview];
-                }
-            }
-            imageView.positionX+=trans.x;
-            if(imageView.tag==self.tag+2 || imageView.positionX<=(self.spacing+1.5*IMAGEWIDTH))
-            {
-                myUIImageView *firstImage=[self viewWithTag:self.tag+1];
-                imageView.positionX=firstImage.center.x+IMAGEWIDTH+self.spacing;
-                imageView.tag=self.tag+2;
-            }
-            sender.view.center=CGPointMake(imageView.positionX, imageView.positionY);
-            [sender setTranslation:CGPointMake(0, 0) inView:sender.view.superview];
-        }
-        else if(trans.x<0 && distance>0)
-        {
-            imageView.positionX+=trans.x;
-            sender.view.center=CGPointMake(imageView.positionX, imageView.positionY);
             [sender setTranslation:CGPointMake(0, 0) inView:sender.view.superview];
         }
     }
     else if(sender.state==UIGestureRecognizerStateCancelled || UIGestureRecognizerStateEnded)
     {
-        CGFloat distance=imageView.positionX-imageView.positionXForver;
-        if(distance>0)
-        {
-            int times=(int)distance/fixedSpacing;
-            int res=(int)distance%(int)fixedSpacing;
-            if(res>=(IMAGEWIDTH/2+self.spacing))
-                times+=1;
-            imageView.positionX=times*fixedSpacing+imageView.positionXForver;
-        }
-        else
-        {
-            distance=distance *(-1);
-            int times=(int)distance/fixedSpacing;
-            int res=(int)distance%(int)fixedSpacing;
-            if(res>=(IMAGEWIDTH/2+self.spacing))
-                times+=1;
-            times=times*(-1);
-            imageView.positionX=fixedSpacing*times+imageView.positionXForver;
-        }
-        if(imageView.tag==self.tag+IMAGECOUNT-1 || imageView.positionX>=(self.spacing*(IMAGECOUNT-2)+(IMAGECOUNT-1)*IMAGEWIDTH))
-        {
-            myUIImageView *lastImage=[self viewWithTag:self.tag+IMAGECOUNT];
-            imageView.positionX=lastImage.center.x-IMAGEWIDTH-self.spacing;
-            imageView.tag=self.tag+IMAGECOUNT-1;
-        }
-        if(imageView.tag==self.tag+2 || imageView.positionX<=(self.spacing+1.5*IMAGEWIDTH))
-        {
-            myUIImageView *firstImage=[self viewWithTag:self.tag+1];
-            imageView.positionX=firstImage.center.x+IMAGEWIDTH+self.spacing;
-            imageView.tag=self.tag+2;
-        }
-        sender.view.center=CGPointMake(imageView.positionX,imageView.positionY);
-        NSLog(@"当前色块最终移动到位置：%f %f",imageView.positionX,imageView.positionY);
-        imageView.positionXTEM=imageView.positionX;
-        imageView.positionXForver=imageView.positionX;
+        [UIView animateWithDuration:0.2 animations:^(){
+            imageView.center=CGPointMake(imageView.positionOriginX, imageView.positionOriginY);
+        } completion:nil];
     }
-*/
+}
+-(void)exchangeView:(myUIImageView *)current withView:(myUIImageView *)other
+{
+    CGFloat tmpx=current.positionOriginX;
+    current.positionOriginX=current.positionCurrentX=other.center.x;
+    [UIView animateWithDuration:0.2 animations:^(){
+        other.center=CGPointMake(tmpx, other.center.y);
+    } completion:nil];
 }
 @end

@@ -6,7 +6,6 @@
 //
 
 #import "myUIImageView.h"
-#import "RGBColor.h"
 @interface myUIImageView()
 
 @end
@@ -18,6 +17,19 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
     // Drawing code
+    
+    //对imageView的轮廓进行自定义绘制
+    CGContextRef context=UIGraphicsGetCurrentContext();
+    CGMutablePathRef path=CGPathCreateMutable();
+    CGPathMoveToPoint(path, NULL, rect.origin.x,rect.origin.y);
+    CGPathAddLineToPoint(path, NULL, rect.origin.x+IMAGEWIDTH, rect.origin.y);
+    CGPathAddLineToPoint(path, NULL, rect.origin.x+IMAGEWIDTH, rect.origin.y+IMAGEHIGHT);
+    CGPathAddLineToPoint(path, NULL, rect.origin.x, rect.origin.y+IMAGEHIGHT);
+    CGPathCloseSubpath(path);
+    CGContextAddPath(context, path);
+    CGContextSetFillColor(<#CGContextRef  _Nullable c#>, <#const CGFloat * _Nullable components#>)
+    
+    
 }
-*/
+ */
 @end

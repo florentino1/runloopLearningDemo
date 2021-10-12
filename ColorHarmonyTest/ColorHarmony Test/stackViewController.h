@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface stackViewController : UIStackView
 -(instancetype)initWithCoder:(NSCoder *)coder;
 -(instancetype)initWithFrame:(CGRect)frame;
+-(void)innerStackViewDoSomeOtherInit;
 -(void)refreshSingleImageViewColor;
 @end
 

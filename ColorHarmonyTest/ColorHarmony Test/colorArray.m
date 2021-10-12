@@ -6,10 +6,6 @@
 //
 
 #import "colorArray.h"
-#import "RGBColor.h"
-
-#define COLORNUMBERS 22
-#define CORLORCOLUMNS 4
 
 @implementation colorArray
 +(instancetype)sharedColorArray

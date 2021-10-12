@@ -10,10 +10,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface colorArray : NSObject
-@property (strong,nonatomic)NSMutableArray *myColorArray;
+@property (strong,nonatomic)NSMutableArray *myColorArray;   //储存由hex 转化为rgb的颜色对象；
+
 +(instancetype)sharedColorArray;
 -(void)setColor;
--(void)makeRandom:(NSMutableArray *)array;
+-(void)makeRandom:(NSMutableArray *)array;  //除了首尾两个颜色之外颜色的乱序排列
 @end
 
 NS_ASSUME_NONNULL_END

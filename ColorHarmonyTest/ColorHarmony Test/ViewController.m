@@ -6,19 +6,13 @@
 //
 
 #import "ViewController.h"
-#import "colorArray.h"
-#import "stackViewController.h"
-#import "RGBColor.h"
-#import "myUIImageView.h"
 
 @interface ViewController ()
-@property (strong, nonatomic) IBOutlet UIButton *scoreButton;
-@property (strong, nonatomic) IBOutlet UIButton *NewTestButton;
-@property (strong, nonatomic) IBOutlet stackViewController *firstStackView;
-@property (strong, nonatomic) IBOutlet stackViewController *secondStackView;
-@property (strong, nonatomic) IBOutlet stackViewController *thirdStackView;
-@property (strong, nonatomic) IBOutlet stackViewController *forthStackView;
-@property (strong,nonatomic)NSString *score;
+@property (strong, nonatomic) UIButton *scoreButton;
+@property (strong, nonatomic) UIButton *NewTestButton;
+@property (strong,nonatomic)  UIStackView *stackView;
+@property (strong, nonatomic) NSMutableArray *innerStackViewArr;
+@property (strong,nonatomic) NSString *score;
 @end
 
 @implementation ViewController
@@ -26,24 +20,55 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-}
-- (IBAction)newTestButtonTapped:(UIButton *)sender {
-    colorArray *color=[colorArray sharedColorArray];
-#warning here 4 need to replace by COLORCOLUMNS
-    for(int i=0;i<4;i++)
-        [color makeRandom:color.myColorArray[i]];
-    [self.firstStackView refreshSingleImageViewColor];
-    [self.secondStackView refreshSingleImageViewColor];
-    [self.thirdStackView refreshSingleImageViewColor];
-    [self.forthStackView refreshSingleImageViewColor];
     
+    _innerStackViewArr=[NSMutableArray array];
+    
+    //newtestbutton
+    _NewTestButton=[UIButton buttonWithType:UIButtonTypeSystem];
+    [_NewTestButton setTitle:@"newTest" forState:UIControlStateNormal];
+    _NewTestButton.translatesAutoresizingMaskIntoConstraints=NO;
+    [_NewTestButton addTarget:self action:@selector(newTestButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_NewTestButton];
+    
+    [_NewTestButton.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:10].active=YES;
+    [_NewTestButton.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active=YES;
+    [_NewTestButton.heightAnchor constraintEqualToConstant:44.0].active=YES;
+    [_NewTestButton.widthAnchor constraintEqualToConstant:66.0].active=YES;
+    
+    //stackView
+    _stackView=[[UIStackView alloc]init];
+    _stackView.axis=UILayoutConstraintAxisVertical;
+    _stackView.spacing=SPACINGBETWEENSTACKVIEW;
+    _stackView.alignment=UIStackViewAlignmentCenter;
+    _stackView.distribution=UIStackViewDistributionEqualSpacing;
+    _stackView.translatesAutoresizingMaskIntoConstraints=NO;
+    [self.view addSubview:_stackView];
+    
+    [_stackView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active=true;
+    [_stackView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active=true;
+    
+    for(int i=0;i<CORLORCOLUMNS;i++)
+    {
+        stackViewController *innerStackView=[[stackViewController alloc]init];
+        innerStackView.tag=100*(i+1);
+        [innerStackView innerStackViewDoSomeOtherInit];
+        [_innerStackViewArr addObject:innerStackView];
+        [_stackView addArrangedSubview:innerStackView];
+    }
 }
-- (IBAction)scoreButtonTapped:(UIButton *)sender {
-    NSUInteger firstStackViewScore=[self caculateScore:self.firstStackView];
-    NSUInteger secondStackViewScore=[self caculateScore:self.secondStackView];
-    NSUInteger thirdStackViewScore=[self caculateScore:self.thirdStackView];
-    NSUInteger forthStackViewScore=[self caculateScore:self.forthStackView];
-    self.score=[NSString stringWithFormat:@"%lu",firstStackViewScore+secondStackViewScore+thirdStackViewScore+forthStackViewScore];
+- (void)newTestButtonTapped:(UIButton *)sender {
+    colorArray *color=[colorArray sharedColorArray];
+    for(int i=0;i<CORLORCOLUMNS;i++)
+    {
+        [color makeRandom:color.myColorArray[i]];
+        [_innerStackViewArr[i] refreshSingleImageViewColor];
+    }
+}
+- (void)scoreButtonTapped:(UIButton *)sender {
+    NSUInteger total=0;
+    for(int i=0;i<CORLORCOLUMNS;i++)
+        total+=[self caculateScore:_innerStackViewArr[i]];
+    self.score=[NSString stringWithFormat:@"%lu",total];
     NSString *scoreString=[NSString stringWithFormat:@"your score is :%@ ",self.score];
     UIAlertController *alert=[UIAlertController alertControllerWithTitle:scoreString message:@"分数越低表示对颜色的识别度越高，0分为当前条件下最佳分数" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancel=[UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){

@@ -11,7 +11,6 @@
 		81B67358263D551100612F7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B67357263D551100612F7D /* AppDelegate.m */; };
 		81B6735B263D551100612F7D /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B6735A263D551100612F7D /* SceneDelegate.m */; };
 		81B6735E263D551100612F7D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B6735D263D551100612F7D /* ViewController.m */; };
-		81B67361263D551100612F7D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81B6735F263D551100612F7D /* Main.storyboard */; };
 		81B67363263D551400612F7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81B67362263D551400612F7D /* Assets.xcassets */; };
 		81B67366263D551400612F7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81B67364263D551400612F7D /* LaunchScreen.storyboard */; };
 		81B67369263D551400612F7D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B67368263D551400612F7D /* main.m */; };
@@ -31,7 +30,6 @@
 		81B6735A263D551100612F7D /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		81B6735C263D551100612F7D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		81B6735D263D551100612F7D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		81B67360263D551100612F7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		81B67362263D551400612F7D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81B67365263D551400612F7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		81B67367263D551400612F7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -82,7 +80,6 @@
 				81B6735A263D551100612F7D /* SceneDelegate.m */,
 				81B6735C263D551100612F7D /* ViewController.h */,
 				81B6735D263D551100612F7D /* ViewController.m */,
-				81B6735F263D551100612F7D /* Main.storyboard */,
 				81B67362263D551400612F7D /* Assets.xcassets */,
 				81B67364263D551400612F7D /* LaunchScreen.storyboard */,
 				81B67367263D551400612F7D /* Info.plist */,
@@ -160,7 +157,6 @@
 				81AE2419270F0E3700E08669 /* HexColor.plist in Resources */,
 				81B67366263D551400612F7D /* LaunchScreen.storyboard in Resources */,
 				81B67363263D551400612F7D /* Assets.xcassets in Resources */,
-				81B67361263D551100612F7D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,14 +181,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		81B6735F263D551100612F7D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				81B67360263D551100612F7D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		81B67364263D551400612F7D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -323,6 +311,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2ZU57N8BUA;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/ColorHarmony Test/PrefixHeader.pch";
 				INFOPLIST_FILE = "ColorHarmony Test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -341,6 +331,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2ZU57N8BUA;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/ColorHarmony Test/PrefixHeader.pch";
 				INFOPLIST_FILE = "ColorHarmony Test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -5,43 +5,69 @@
 //  Created by 莫玄 on 2021/5/1.
 //
 #import "stackViewController.h"
-#import "myUIImageView.h"
-#import "colorArray.h"
-#import "RGBColor.h"
-
-
-#define WIDTH 24.0
-#define HIGHT 24.0
-#define IMAGECOUNT 22
 
 @interface stackViewController()
+
 @property (assign,nonatomic)NSUInteger tagtmp;//用于储存正在被拖动的imageView的初始tag；
 @property (strong,nonatomic)NSMutableArray *color;//用于储存来自colorArray的随机颜色；
+@property (strong,nonatomic)myUIImageView *first;     //第一个不可移动不可交互的色块
+@property (strong,nonatomic)myUIImageView *last;      //最后一个不可移动不可交互的色块
+@property (strong,nonatomic)UIStackView *stackView;  //用于显示可移动，可交互的色块
+
+
 @end
 @implementation stackViewController
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 -(instancetype)initWithFrame:(CGRect)frame
 {
     self=[super initWithFrame:frame];
-    self.tagtmp=1001;
-    [self setColorArray];
-    [self setImages];
     return self;
 }
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     self=[super initWithCoder:coder];
-    self.tagtmp=1001;
-    [self setColorArray];
-    [self setImages];
     return self;
+}
+-(void)innerStackViewDoSomeOtherInit
+{
+    [self setColorArray];
+    [self initStackConstraint];
+    [self setImages];
+}
+//进行stackview内部的初始化视图布局
+-(void)initStackConstraint
+{
+    self.axis=UILayoutConstraintAxisHorizontal;
+    self.alignment=UIStackViewAlignmentCenter;
+    self.layoutMarginsRelativeArrangement=NO;
+    self.distribution=UIStackViewDistributionFill;
+    
+    _first=[[myUIImageView alloc]init];
+    _last=[[myUIImageView alloc]init];
+    _stackView=[[UIStackView alloc]init];
+    
+    [self setSingleImageColorWithimageView:_first Index:0 ColorArray:_color];
+    [self setSingleImageColorWithimageView:_last Index:COLORNUMBERS-1 ColorArray:_color];
+    [_first.heightAnchor constraintEqualToConstant:IMAGEHIGHT].active=true;
+    [_first.widthAnchor constraintEqualToConstant:IMAGEWIDTH].active=true;
+    
+    [_last.heightAnchor constraintEqualToConstant:IMAGEHIGHT].active=true;
+    [_last.widthAnchor constraintEqualToConstant:IMAGEWIDTH].active=true;
+    
+    [self.stackView.heightAnchor constraintEqualToConstant:IMAGEHIGHT].active=true;
+    
+    [self addArrangedSubview:_first];
+    [self addArrangedSubview:_stackView];
+    [self addArrangedSubview:_last];
+    
+    [self setCustomSpacing:BIGSPACING afterView:_first];
+    [self setCustomSpacing:BIGSPACING afterView:_stackView];
+    
+    self.stackView.axis=UILayoutConstraintAxisHorizontal;
+    self.stackView.spacing=SMALLSPACING;
+    self.stackView.distribution=UIStackViewDistributionEqualSpacing;
+    self.stackView.alignment=UIStackViewAlignmentCenter;
+    self.stackView.layoutMarginsRelativeArrangement=NO;
 }
 -(void)setColorArray
 {
@@ -49,39 +75,44 @@
     if(self.tag==100)
     {
         _color=colorA.myColorArray[0];
+        return;
     }
     else if(self.tag==200)
     {
         _color=colorA.myColorArray[1];
+        return;;
     }
     else if(self.tag==300)
     {
         _color=colorA.myColorArray[2];
+        return;
     }
     else if(self.tag==400)
     {
         _color=colorA.myColorArray[3];
+        return;
     }
+    NSException *erro=[NSException exceptionWithName:@"no_tag" reason:@"inner_stack_view has no tag val" userInfo:nil];
+    [erro raise];
 }
 -(void)setImages
 {
-    for(int i=1;i<=IMAGECOUNT;i++)
+    for(int i=1;i<COLORNUMBERS-1;i++)
     {
-        //设置imageview的基本参数
-        myUIImageView *image=[[myUIImageView alloc]init];
-        [image.heightAnchor constraintEqualToConstant:HIGHT].active=true;
-        [image.widthAnchor constraintEqualToConstant:WIDTH].active=true;
+            //设置imageview的基本参数
+            myUIImageView *image=[[myUIImageView alloc]init];
+            image.tag=i;
+            image.userInteractionEnabled=YES;
+            [image.heightAnchor constraintEqualToConstant:IMAGEHIGHT].active=true;
+            [image.widthAnchor constraintEqualToConstant:IMAGEWIDTH].active=true;
 
-        //设置每个色块的颜色
-        [self setSingleImageColorWithimageView:image Index:i ColorArray:_color];
+            //设置每个色块的颜色
+            [self setSingleImageColorWithimageView:image Index:i ColorArray:_color];
 
-        //设置每个色块的tag;
-        [self imageSetTag:image withIndex:(i+(int)self.tag)];
+            //设置手势识别器
+            [self imageViewSetPanGesture:image];
 
-        //设置手势识别器
-        [self imageViewSetPanGesture:image];
-
-        [self addArrangedSubview:image];
+            [self.stackView addArrangedSubview:image];
     }
 }
 -(void)imageViewSetPanGesture:(myUIImageView *)image
@@ -92,29 +123,17 @@
     [pan addTarget:self action:@selector(panMove:)];
     [image addGestureRecognizer:pan];
 }
--(void)imageSetTag:(myUIImageView *)image withIndex:(int)i
-{
-    image.tag=i;
-    if(image.tag==(1+self.tag) || image.tag==(22+self.tag))
-    {
-        image.userInteractionEnabled=NO;
-    }
-    else
-    {
-        image.userInteractionEnabled=YES;
-    }
-}
 -(void)setSingleImageColorWithimageView:(myUIImageView *)image Index:(int)i ColorArray:(NSMutableArray *)color
 {
-    RGBColor *rgbColor=color[i-1];
-    UIColor *colorWithCGColor=[UIColor colorWithRed:rgbColor.R/255.0 green:rgbColor.G/255.0 blue:rgbColor.B/255.0 alpha:1.0];
-    image.backgroundColor=colorWithCGColor;
+    RGBColor *rgbColor=color[i];
+    UIColor *colorForImageView=[UIColor colorWithRed:rgbColor.R/255.0 green:rgbColor.G/255.0 blue:rgbColor.B/255.0 alpha:1.0];
+    image.backgroundColor=colorForImageView;
     image.colorInfo=rgbColor;
 }
 -(void)refreshSingleImageViewColor
 {
     [self setColorArray];
-    for(int i=1;i<=IMAGECOUNT;i++)
+    for(int i=1;i<COLORNUMBERS-1;i++)
     {
         myUIImageView *image=[self viewWithTag:(i+self.tag)];
         [self setSingleImageColorWithimageView:image Index:i ColorArray:self.color];
@@ -122,152 +141,122 @@
 }
 -(void)panMove:(UIPanGestureRecognizer *)sender
 {
-    myUIImageView *image=(myUIImageView *)sender.view;
-    CGPoint trans=[sender translationInView:sender.view.superview];
-    CGFloat k=WIDTH+self.spacing;
+    myUIImageView *imageView=(myUIImageView *)sender.view;
+    CGPoint trans=[sender translationInView:sender.view.superview];     //移动距离的累加值
+  //  CGFloat fixedSpacing=IMAGEWIDTH+self.stackView.spacing;     //色块的宽度加上两个色块之间的间隔
+    CGFloat shouldExchangeSpacing=IMAGEWIDTH+self.stackView.spacing;   //色块宽度加上两个色块之间的间隔
+    
     if(sender.state==UIGestureRecognizerStateBegan)
     {
-        image.positionXForver=sender.view.center.x;
-        image.positionX=sender.view.center.x;
-        image.positionY=sender.view.center.y;
-        image.positionXTEM=image.positionX;
-        NSLog(@"当前正在移动的imageview 序号为：%lu,坐标为：%f,%f\n",(unsigned long)image.tag,image.positionX,image.positionY);
-
+        imageView.positionXOriginX=sender.view.center.x;
+        imageView.positionXCurrent=imageView.positionXOriginX;
+        NSLog(@"当前正在移动的imageview 序号为：%lu,坐标为：%f,%f\n",(unsigned long)imageView.tag,imageView.positionX,imageView.positionY);
     }
-   else if(sender.state==UIGestureRecognizerStateChanged)
+    else if(sender.state==UIGestureRecognizerStateChanged)
     {
-        NSUInteger index=image.tag;
-        //CGFloat temx=trans.x+image.positionX;
-        CGFloat distance=trans.x+image.positionX-image.positionXTEM;
-        if(trans.x>=0 && distance>=0)
+        NSUInteger imageViewTag=imageView.tag;
+        myUIImageView *nextImageView;
+        if(trans.x>0)
+            nextImageView=[self viewWithTag:imageViewTag+1];
+        else if(trans.x<0)
         {
-            NSLog(@"色块向右移动:%f,总计移动：%f",trans.x,distance);
-            int times=(int)distance/k;
-            int res=(int)distance % (int)k;
-            if(res>=(WIDTH/2+self.spacing))
-                times+=1;
-            for (NSUInteger i=1+index;i<=times+index; i++)
-            {
-                //判断下一个色块是否是最后一个色块
-                if(i!=self.tag+22)
-                {
-                    myUIImageView *imageNext=[self viewWithTag:i];
-                    image.tag=self.tagtmp;
-                    imageNext.tag=imageNext.tag-1;
-                    imageNext.positionX=image.positionXTEM;
-                    imageNext.positionY=image.positionY;
-                    imageNext.positionXForver=image.positionX;
-                    imageNext.positionXTEM=imageNext.positionX;
-                    imageNext.center=CGPointMake(imageNext.positionX, imageNext.positionY);
-                    NSLog(@"色块%ld移动到位置：%f %f",(long)imageNext.tag, imageNext.positionX,imageNext.positionY);
-                    image.tag=i;
-                    image.positionX+=trans.x;
-                    sender.view.center=CGPointMake(image.positionX, image.positionY);
-                    NSLog(@"当前色块移动到位置：%f %f",image.positionX,image.positionY);
-                    image.positionXTEM+=k;
-                    [sender setTranslation:CGPointMake(0, 0) inView:sender.view.superview];
-                    trans.x=0;
-                    trans.y=0;
-                    k=0;
-                }
-            }
-            image.positionX=image.positionX+trans.x;
-          //  image.positionXTEM+=k;
-            sender.view.center=CGPointMake(image.positionX, image.positionY);
-            [sender setTranslation:CGPointMake(0, 0) inView:sender.view.superview];
+            nextImageView=[self viewWithTag:imageViewTag-1];
+            trans.x*=-1;
         }
-        else if(trans.x>=0 && distance<0)
+        if(trans.x==shouldExchangeSpacing)
         {
-            image.positionX=image.positionX+trans.x;
-            sender.view.center=CGPointMake(image.positionX, image.positionY);
-            [sender setTranslation:CGPointMake(0, 0) inView:sender.view.superview];
+            [self.stackView exchangeSubviewAtIndex:imageViewTag withSubviewAtIndex:imageViewTag+1];
+            imageView.tag=nextImageView.tag;
+            nextImageView.tag=imageViewTag;
         }
-
+        [sender setTranslation:CGPointMake(0, 0) inView:sender.view.superview];
+    }
+/*
         //判断向左进行移动
         else if(trans.x<0 && distance<=0)
         {
             NSLog(@"色块向左移动:%f,总计移动：%f",trans.x,distance);
             distance=distance*(-1);
-            int res=(int)distance% (int)k;
-            int times=(int)distance/k;
-            if(res>=(WIDTH/2+self.spacing))
+            int res=(int)distance% (int)fixedSpacing;
+            int times=(int)distance/fixedSpacing;
+            if(res>=(IMAGEWIDTH/2+self.spacing))
                 times+=1;
             for(NSUInteger i=index-1;i>=index-times;i--)
             {
                 if(i!=self.tag+1)
                 {
                     myUIImageView *imageForward=[self viewWithTag:i];
-                    image.tag=self.tagtmp;
+                    imageView.tag=self.tagtmp;
                     imageForward.tag+=1;
-                    imageForward.positionX=image.positionXTEM;
-                    imageForward.positionY=image.positionY;
-                    imageForward.positionXForver=image.positionX;
+                    imageForward.positionX=imageView.positionXTEM;
+                    imageForward.positionY=imageView.positionY;
+                    imageForward.positionXForver=imageView.positionX;
                     imageForward.positionXTEM=imageForward.positionX;
                     imageForward.center=CGPointMake(imageForward.positionX, imageForward.positionY);
-                    image.tag=i;
-                    image.positionX+=trans.x;
-                    sender.view.center=CGPointMake(image.positionX, image.positionY);
-                    image.positionXTEM-=k;
+                    imageView.tag=i;
+                    imageView.positionX+=trans.x;
+                    sender.view.center=CGPointMake(imageView.positionX, imageView.positionY);
+                    imageView.positionXTEM-=fixedSpacing;
                     trans.x=0;
                     trans.y=0;
                     [sender setTranslation:CGPointMake(0, 0) inView:sender.view.superview];
                 }
             }
-            image.positionX+=trans.x;
-            if(image.tag==self.tag+2 || image.positionX<=(self.spacing+1.5*WIDTH))
+            imageView.positionX+=trans.x;
+            if(imageView.tag==self.tag+2 || imageView.positionX<=(self.spacing+1.5*IMAGEWIDTH))
             {
                 myUIImageView *firstImage=[self viewWithTag:self.tag+1];
-                image.positionX=firstImage.center.x+WIDTH+self.spacing;
-                image.tag=self.tag+2;
+                imageView.positionX=firstImage.center.x+IMAGEWIDTH+self.spacing;
+                imageView.tag=self.tag+2;
             }
-            sender.view.center=CGPointMake(image.positionX, image.positionY);
+            sender.view.center=CGPointMake(imageView.positionX, imageView.positionY);
             [sender setTranslation:CGPointMake(0, 0) inView:sender.view.superview];
         }
         else if(trans.x<0 && distance>0)
         {
-            image.positionX+=trans.x;
-            sender.view.center=CGPointMake(image.positionX, image.positionY);
+            imageView.positionX+=trans.x;
+            sender.view.center=CGPointMake(imageView.positionX, imageView.positionY);
             [sender setTranslation:CGPointMake(0, 0) inView:sender.view.superview];
         }
     }
     else if(sender.state==UIGestureRecognizerStateCancelled || UIGestureRecognizerStateEnded)
     {
-        CGFloat distance=image.positionX-image.positionXForver;
+        CGFloat distance=imageView.positionX-imageView.positionXForver;
         if(distance>0)
         {
-            int times=(int)distance/k;
-            int res=(int)distance%(int)k;
-            if(res>=(WIDTH/2+self.spacing))
+            int times=(int)distance/fixedSpacing;
+            int res=(int)distance%(int)fixedSpacing;
+            if(res>=(IMAGEWIDTH/2+self.spacing))
                 times+=1;
-            image.positionX=times*k+image.positionXForver;
+            imageView.positionX=times*fixedSpacing+imageView.positionXForver;
         }
         else
         {
             distance=distance *(-1);
-            int times=(int)distance/k;
-            int res=(int)distance%(int)k;
-            if(res>=(WIDTH/2+self.spacing))
+            int times=(int)distance/fixedSpacing;
+            int res=(int)distance%(int)fixedSpacing;
+            if(res>=(IMAGEWIDTH/2+self.spacing))
                 times+=1;
             times=times*(-1);
-            image.positionX=k*times+image.positionXForver;
+            imageView.positionX=fixedSpacing*times+imageView.positionXForver;
         }
-        if(image.tag==self.tag+IMAGECOUNT-1 || image.positionX>=(self.spacing*(IMAGECOUNT-2)+(IMAGECOUNT-1)*WIDTH))
+        if(imageView.tag==self.tag+IMAGECOUNT-1 || imageView.positionX>=(self.spacing*(IMAGECOUNT-2)+(IMAGECOUNT-1)*IMAGEWIDTH))
         {
             myUIImageView *lastImage=[self viewWithTag:self.tag+IMAGECOUNT];
-            image.positionX=lastImage.center.x-WIDTH-self.spacing;
-            image.tag=self.tag+IMAGECOUNT-1;
+            imageView.positionX=lastImage.center.x-IMAGEWIDTH-self.spacing;
+            imageView.tag=self.tag+IMAGECOUNT-1;
         }
-        if(image.tag==self.tag+2 || image.positionX<=(self.spacing+1.5*WIDTH))
+        if(imageView.tag==self.tag+2 || imageView.positionX<=(self.spacing+1.5*IMAGEWIDTH))
         {
             myUIImageView *firstImage=[self viewWithTag:self.tag+1];
-            image.positionX=firstImage.center.x+WIDTH+self.spacing;
-            image.tag=self.tag+2;
+            imageView.positionX=firstImage.center.x+IMAGEWIDTH+self.spacing;
+            imageView.tag=self.tag+2;
         }
-        sender.view.center=CGPointMake(image.positionX,image.positionY);
-        NSLog(@"当前色块最终移动到位置：%f %f",image.positionX,image.positionY);
-        image.positionXTEM=image.positionX;
-        image.positionXForver=image.positionX;
+        sender.view.center=CGPointMake(imageView.positionX,imageView.positionY);
+        NSLog(@"当前色块最终移动到位置：%f %f",imageView.positionX,imageView.positionY);
+        imageView.positionXTEM=imageView.positionX;
+        imageView.positionXForver=imageView.positionX;
     }
-
+*/
 }
 @end

@@ -113,30 +113,15 @@
 }
 -(NSUInteger)caculateScore:(stackViewController *)stackView
 {
-    NSMutableArray *colorIndexArray=[NSMutableArray array];
-    for(int i=1;i<=22;i++)
+    NSUInteger totalScore=0;
+    for(int i=1;i<COLORNUMBERS-1;i++)
     {
-        myUIImageView *image=[stackView viewWithTag:(i+stackView.tag)];
+        myView *image=[stackView viewWithTag:(i+stackView.tag)];
         RGBColor *color=image.colorInfo;
         NSUInteger index=color.index;
-        NSNumber *colorIndex=[NSNumber numberWithInteger:index];
-        [colorIndexArray addObject:colorIndex];
-    }
-    NSUInteger score=[self caculateArray:colorIndexArray];
-    return score;
-}
--(NSUInteger)caculateArray:(NSMutableArray *)array
-{
-    NSUInteger score=0;
-    for(int i=0;i<22;i++)
-    {
-        NSNumber *colorIndex=array[i];
-        NSUInteger index=[colorIndex intValue];
         if(index!=i)
-        {
-            score+=1;
-        }
+            totalScore+=1;
     }
-    return score;
+    return totalScore;
 }
 @end

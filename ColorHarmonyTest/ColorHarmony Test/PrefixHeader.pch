@@ -10,7 +10,7 @@
 
 #import "RGBColor.h"
 #import "colorArray.h"
-#import "myUIImageView.h"
+#import "myView.h"
 #import "stackViewController.h"
 
 // Include any system framework and library headers here that should be included in all compilation units.
